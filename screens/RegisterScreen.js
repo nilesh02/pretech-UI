@@ -15,7 +15,7 @@ export default class RegisterScreen extends Component {
 		this.state = { 
 		email: '',emailError:'',emailFlag:false,
         Password:'',PasswordError:'',PasswordFlag:false,
-        RetypePassword:'',RetypePasswordError:'',RetypePasswordFlag:false,
+        ConfirmPassword:'',ConfirmPasswordError:'',ConfirmPasswordFlag:false,
         spinner: false
         };
     }
@@ -41,15 +41,15 @@ export default class RegisterScreen extends Component {
             this.setState({PasswordError:'Password should be between 6 and 15 characters.',PasswordFlag:false});
         }
 
-        if(this.state.Password===this.state.RetypePassword){
-            this.setState({RetypePasswordError:'',RetypePasswordFlag:true});
+        if(this.state.Password===this.state.ConfirmPassword){
+            this.setState({ConfirmPasswordError:'',ConfirmPasswordFlag:true});
         } else {
-            this.setState({RetypePasswordError:'Password doesn\'t match. Please Retry.',RetypePasswordFlag:false});
+            this.setState({ConfirmPasswordError:'Password doesn\'t match. Please Retry.',ConfirmPasswordFlag:false});
         }
 
-        // console.log("email - "+this.state.email," Password - "+ this.state.Password, " Retype-Password- "+this.state.RetypePassword);
+        // console.log("email - "+this.state.email," Password - "+ this.state.Password, " Confirm-Password- "+this.state.ConfirmPassword);
         
-        if(this.state.emailFlag==true && this.state.PasswordFlag==true && this.state.RetypePasswordFlag==true){
+        if(this.state.emailFlag==true && this.state.PasswordFlag==true && this.state.ConfirmPasswordFlag==true){
             firebase
 				.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.Password)
@@ -90,11 +90,11 @@ export default class RegisterScreen extends Component {
                 />
 
                 <TextInput
-                    label="Password"
+                    label="Confirm Password"
                     returnKeyType="done"
-                    value={this.state.RetypePassword}
-                    onChangeText={(RetypePassword) => this.setState({RetypePassword:RetypePassword})}
-                    errorText={this.state.RetypePasswordError}
+                    value={this.state.ConfirmPassword}
+                    onChangeText={(ConfirmPassword) => this.setState({ConfirmPassword:ConfirmPassword})}
+                    errorText={this.state.ConfirmPasswordError}
                     secureTextEntry
                 />
 
