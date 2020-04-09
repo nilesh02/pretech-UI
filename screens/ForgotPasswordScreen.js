@@ -19,7 +19,7 @@ export default class ForgotPasswordScreen extends Component {
     }
 
     componentDidMount() {
-        this.setState({ email: '', spinner: false });
+        this.setState({ email: '',emailError: '', spinner: false });
     }
 
     sendPasswordChangeLink() {

@@ -19,7 +19,7 @@ const AppNavigator = createStackNavigator(
      MainScreen
   },
  {
-   initialRouteName: 'LoginScreen',
+   initialRouteName: 'LoadingScreen',
    headerMode: 'none'
  },
 );
