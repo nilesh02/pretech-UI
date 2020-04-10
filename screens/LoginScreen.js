@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
+import Spinner from 'react-native-loading-spinner-overlay';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
@@ -26,7 +27,7 @@ export default class LoginScreen extends Component {
     loginUser() {
         //validating email address
         const re = /\S+@\S+\.\S+/;
-        
+        this.setState({ spinner: true });
         if (!re.test(this.state.email)) {
             this.setState({ emailError: 'Ooops! We need a valid email address.', emailFlag: false });
         } else {
@@ -46,10 +47,15 @@ export default class LoginScreen extends Component {
                 .auth()
                 .signInWithEmailAndPassword(this.state.email, this.state.Password)
                 .then(() => {
-                    this.setState({ spinner: false });
+					this.setState({spinner:false,email:'',emailError:'',Password:'',PasswordError:''});
                     this.props.navigation.navigate('MainScreen');
                 })
-                .catch(error => alert(error));
+                .catch(error => {
+                    alert(error)
+                    this.setState({ spinner: false });
+                });
+        } else{
+            this.setState({ spinner: false });
         }
     }
 
@@ -57,6 +63,7 @@ export default class LoginScreen extends Component {
         return (
             <Background>
                 <Logo />
+                <Spinner visible={this.state.spinner} color={theme.colors.spinner} animation="fade"/>
                 <Header>Welcome back.</Header>
                 <TextInput
                     label="Email"

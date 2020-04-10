@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
+import Spinner from 'react-native-loading-spinner-overlay';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
@@ -25,24 +26,31 @@ export default class ForgotPasswordScreen extends Component {
     sendPasswordChangeLink() {
         //validating email address
         const re = /\S+@\S+\.\S+/;
-
+        this.setState({ spinner: true });
         if (!re.test(this.state.email)) {
             this.setState({ emailError: 'Ooops! We need a valid email address.' });
+            this.setState({ spinner: false });
         } else {
             this.setState({ emailError: '' });
             firebase.auth().sendPasswordResetEmail(this.state.email)
-                .then(user => alert('Please check your email for Password Reset link.'))
-                .catch(error => alert(error))
+                .then(user => {
+                    alert('Please check your email for Password Reset link.');
+                    this.setState({ email: '',emailError: '', spinner: false });
+                })
+                .catch(error => {
+                    alert(error);
+                    this.setState({ spinner: false });
+                })
         }
+
     }
 
     render() {
         return (
             <Background>
                 <Logo />
-
+				<Spinner visible={this.state.spinner} color={theme.colors.spinner} animation="fade"/>
                 <Header>Restore Password</Header>
-
                 <TextInput
                     label="Email"
                     returnKeyType="done"

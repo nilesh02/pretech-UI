@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
+import Spinner from 'react-native-loading-spinner-overlay';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
@@ -28,7 +29,7 @@ export default class RegisterScreen extends Component {
 	{
         //validating email address
         const re = /\S+@\S+\.\S+/;
-
+        this.setState({ spinner: true });
 		if(!re.test(this.state.email)){
 			this.setState({emailError:'Ooops! We need a valid email address.',emailFlag:false});
         } else{
@@ -54,10 +55,15 @@ export default class RegisterScreen extends Component {
 				.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.Password)
 				.then(() => {
-					this.setState({spinner:false});
+					this.setState({spinner:false,email:'',emailError:'',Password:'',PasswordError:'',ConfirmPassword:'',ConfirmPasswordError:''});
 					this.props.navigation.navigate('MainScreen');
 				})
-				.catch(error => alert(error));
+				.catch(error => {
+                    alert(error);
+                    this.setState({ spinner: false });
+                });
+        } else {
+            this.setState({ spinner: false });
         }
     }
     
@@ -65,9 +71,8 @@ export default class RegisterScreen extends Component {
         return (
             <Background>
                 <Logo />
-
                 <Header>Create Account</Header>
-
+                <Spinner visible={this.state.spinner} color={theme.colors.spinner} animation="fade"/>
                 <TextInput
                     label="Email"
                     returnKeyType="next"

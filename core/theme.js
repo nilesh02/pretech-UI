@@ -8,5 +8,6 @@ export const theme = {
     primary: '#e64417',
     secondary: '#e65f17',
     error: '#f13a59',
+    spinner:'#e64417',
   },
 };
