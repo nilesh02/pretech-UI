@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import * as firebase from 'firebase';
-import { Button } from 'react-native-paper';
+import { Button} from 'react-native-paper';
 
-export default class MainScreen extends Component {
+export default class HomeScreen extends Component {
 
     logout() {
         firebase.auth().signOut()

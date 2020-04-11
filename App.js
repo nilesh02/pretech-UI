@@ -1,22 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer,createSwitchNavigator} from 'react-navigation';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { theme } from './core/theme';
 import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import MainScreen from './screens/MainScreen';
+import MenuDrawer from './screens/MenuDrawer';
 
-const AppNavigator = createStackNavigator(
+const AppNavigator = createSwitchNavigator(
   {
      LoadingScreen,
      LoginScreen,
      ForgotPasswordScreen,
      RegisterScreen,
-     MainScreen
+     MainScreen:MenuDrawer,
   },
  {
    initialRouteName: 'LoadingScreen',
