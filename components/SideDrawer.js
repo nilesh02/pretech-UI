@@ -21,7 +21,7 @@ export default class SideDrawer extends Component {
                         <Icon name='home' size={24} color={theme.colors.primary} />
                         <Text style={styles.menuText}>Home</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menu} onPress={()=>this.props.navigation.navigate('LoginScreen')}>
+                    <TouchableOpacity style={styles.menu} onPress={()=>this.props.navigation.navigate('ProfileScreen')}>
                         <Icon name='user-o' size={24} color={theme.colors.primary} />
                         <Text style={styles.menuText} >Profile</Text>
                     </TouchableOpacity>
