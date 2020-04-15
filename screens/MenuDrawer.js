@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import LoginScreen from './LoginScreen';
 import HomeScreen from './HomeScreen';
+import ProjectionScreen from './ProjectionScreen';
+import MaterialBalancePlantScreen from './MaterialBalancePlantScreen';
+import MaterialBalanceEQPScreen from './MaterialBalanceEQPScreen';
+import SettingsScreen from './SettingsScreen';
 import SideDrawer from "../components/SideDrawer";
+import SideBar from "../components/SideBar";
 
 const HomeScreenStack = createStackNavigator({
     HomeScreen: {
@@ -13,11 +15,51 @@ const HomeScreenStack = createStackNavigator({
         navigationOptions: ({ navigation }) => ({
             headerTitle: "Home Page",
             headerLeft: () =>
-                <View>
-                    <TouchableOpacity onPress={() => { navigation.toggleDrawer() }}>
-                        <Icon name='bars' size={25} />
-                    </TouchableOpacity>
-                </View>
+                <SideBar navigation={navigation}/>
+        })
+    },
+});
+
+const ProjectionScreenStack = createStackNavigator({
+    ProjectionScreen: {
+        screen: ProjectionScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: "Projections",
+            headerLeft: () =>
+                <SideBar navigation={navigation}/>
+        })
+    },
+});
+
+const MaterialBalancePlantScreenStack = createStackNavigator({
+    MaterialBalancePlantScreen: {
+        screen: MaterialBalancePlantScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: "Material Balance- Plant",
+            headerLeft: () =>
+                <SideBar navigation={navigation}/>
+        })
+    },
+});
+
+const MaterialBalanceEQPScreenStack = createStackNavigator({
+    MaterialBalanceEQPScreen: {
+        screen: MaterialBalanceEQPScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: "Material Balance- EQP",
+            headerLeft: () =>
+                <SideBar navigation={navigation}/>
+        })
+    },
+});
+
+const SettingsScreenStack = createStackNavigator({
+    SettingsScreen: {
+        screen: SettingsScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: "Settings",
+            headerLeft: () =>
+                <SideBar navigation={navigation}/>
         })
     },
 });
@@ -25,7 +67,10 @@ const HomeScreenStack = createStackNavigator({
 const MenuDrawer = createDrawerNavigator(
     {
         HomeScreen: { screen: HomeScreenStack },
-        ProfileScreen: { screen: LoginScreen },
+        ProjectionScreen: { screen: ProjectionScreenStack },
+        MaterialBalancePlantScreen:{screen:MaterialBalancePlantScreenStack},
+        MaterialBalanceEQPScreen:{screen:MaterialBalanceEQPScreenStack},
+        SettingsScreen:{screen:SettingsScreenStack},
     }, {
         contentComponent: props => <SideDrawer {...props} />
     }

@@ -17,25 +17,25 @@ export default class SideDrawer extends Component {
             <View style={styles.sideMenu}>
                 <View style={{ paddingHorizontal: 30 }}>
                     {this._renderHeader()}
-                    <TouchableOpacity style={[styles.menu, { backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: 5 }]} onPress={()=>this.props.navigation.navigate('HomeScreen')}>
+                    <TouchableOpacity style={styles.menu} onPress={()=>this.props.navigation.navigate('HomeScreen')}>
                         <Icon name='home' size={24} color={theme.colors.primary} />
                         <Text style={styles.menuText}>Home</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menu} onPress={()=>this.props.navigation.navigate('ProfileScreen')}>
-                        <Icon name='user-o' size={24} color={theme.colors.primary} />
-                        <Text style={styles.menuText} >Profile</Text>
+                    <TouchableOpacity style={styles.menu} onPress={()=>this.props.navigation.navigate('ProjectionScreen')}>
+                        <Icon name='product-hunt' size={24} color={theme.colors.primary} />
+                        <Text style={styles.menuText} >Projections</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menu}>
+                    <TouchableOpacity style={styles.menu} onPress={()=>this.props.navigation.navigate('MaterialBalancePlantScreen')}>
+                        <Icon name='microchip' size={24} color={theme.colors.primary} />
+                        <Text style={styles.menuText} >Material Balance Plant</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menu} onPress={()=>this.props.navigation.navigate('MaterialBalanceEQPScreen')}>
+                        <Icon name='modx' size={24} color={theme.colors.primary} />
+                        <Text style={styles.menuText} >Material Balance EQP</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menu} onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
                         <Icon name='cog' size={24} color={theme.colors.primary} />
                         <Text style={styles.menuText} >Settings</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menu}>
-                        <Icon name='comment-o' size={24} color={theme.colors.primary} />
-                        <Text style={styles.menuText} >Chat</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menu}>
-                        <Icon name='bell-o' size={24} color={theme.colors.primary} />
-                        <Text style={styles.menuText} >Notification</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menu} onPress={this.logout.bind(this)}>
                         <Icon name='sign-out' size={24} color={theme.colors.primary} />

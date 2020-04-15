@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text,ScrollView } from 'react-native';
 import * as firebase from 'firebase';
-import DisplayLineChart from '../components/DisplayLineChart';
+import DisplayBarChart from '../components/DisplayBarChart';
 import SectionText from '../components/SectionText';
+import SectionInput from '../components/SectionInput';
 
-export default class HomeScreen extends Component {
+export default class ProjectionScreen extends Component {
     render() {
         return (
             <ScrollView>
-            <DisplayLineChart/>
+            <DisplayBarChart/>
             <View style={styles.container}>
                 <SectionText label="Batch Number" value="Data-001" unit=""/>
                 <SectionText label="Product" value="Data-002" unit=""/>
                 <SectionText label="Officer In-charge" value="Data-011" unit=""/>
             </View>
             <View style={styles.container}>
-                <SectionText label="Product Recovered" value="Para-010" unit="KG"/>
-                <SectionText label="RM Consumed" value="Para-001" unit="KG"/>
-                <SectionText label="Energy Consumed" value="Para-019" unit="KWH"/>
+                <SectionText label="Current Production Rate" value="CPara-001" unit="KG/hr"/>
+                <SectionText label="Est. Time to Finish" value="PAlt-001" unit="days/hrs/min"/>
+                <SectionText label="Est. Amt. of Production" value="PAlt-002" unit="KG"/>
             </View>
 
             <View style={styles.container}>
-                <SectionText label="Est. Time to Finish" value="Cpara-005" unit="days/hrs/min"/>
-                <SectionText label="Est. Cost of Batch" value="Rs." unit="Cpara-002"/>
+                <SectionInput label="Expected Rise/Fall in Rate-1" value="Bdata-005" unit="%"/>
+                <SectionText label="Proj. Time to Finish" value="CPara-006" unit="days/hrs/min" />
             </View>
 
             <View style={styles.container}>
-                <SectionText label="Current Production Rate" value="Cpara-001" unit="KG/hr"/>
-                <SectionText label="Est. Amt. of Production" value="PAlt-002" unit="kG"/>
-                <SectionText label="Target Production" value="CPara-003" unit="kG"/>
+                <SectionInput label="Expected Rise/Fall in Rate-2" value="Bdata-006" unit="%"/>
+                <SectionText label="Proj. Time to Finish" value="CPara-007" unit="days/hrs/min"/>
             </View>
             </ScrollView>
         )
