@@ -4,7 +4,20 @@ import {
     LineChart
 } from "react-native-chart-kit";
 
+let pieData1 = [
+    {
+      name: ': East',
+      population:'100',
+      color: '#00664f',
+      legendFontColor: 'black',
+      legendFontSize: 12,
+    },
+  ]
+  
 export default class DisplayLineChart extends Component {
+
+    
+
     render() {
         return (
             <View>
@@ -20,8 +33,21 @@ export default class DisplayLineChart extends Component {
                                     Math.random() * 100,
                                     Math.random() * 100,
                                     Math.random() * 100
-                                ]
-                            }
+                                ],
+                                color: (opacity = 1) => 'red',
+                            },
+                            {
+                                data: [
+                                    Math.random() * 100,
+                                    Math.random() * 100,
+                                    Math.random() * 100,
+                                    Math.random() * 100,
+                                    Math.random() * 100,
+                                    Math.random() * 100
+                                ],
+                                color: (opacity = 1) => '#000000',
+                            },
+                            
                         ]
                     }}
                     width={Dimensions.get("window").width*0.95} // from react-native
