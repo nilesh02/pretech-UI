@@ -22,12 +22,14 @@ export default class ProjectionScreen extends Component {
             </View>
 
             <View style={styles.container}>
-                <SectionInput label="Expected Rise/Fall in Rate-1" value="Bdata-005" unit="%"/>
+                <SectionInput label="Expected Rise in Rate-1" value="Bdata-005" unit="%"/>
+                <SectionInput label="Expected Fall in Rate-1" value="Bdata-005" unit="%"/>
                 <SectionText label="Proj. Time to Finish" value="CPara-006" unit="days/hrs/min" />
             </View>
 
             <View style={styles.container}>
-                <SectionInput label="Expected Rise/Fall in Rate-2" value="Bdata-006" unit="%"/>
+                <SectionInput label="Expected Rise in Rate-2" value="Bdata-006" unit="%"/>
+                <SectionInput label="Expected Fall in Rate-2" value="Bdata-006" unit="%"/>
                 <SectionText label="Proj. Time to Finish" value="CPara-007" unit="days/hrs/min"/>
             </View>
             </ScrollView>
