@@ -21,7 +21,7 @@ export default class SectionInput extends Component {
       <View style={styles.container}>
         <Text style={styles.label}>{this.state.label}</Text>
         <View style={styles.innerContainer}>
-          <TextInput style={styles.value} value={this.state.value} onChangeText={(text) =>this.setState({value:text,props})} />
+          <TextInput style={styles.value} value={this.state.value} onChangeText={(text) =>this.setState({value:text})} />
           <Text style={styles.unit}>{this.state.unit}</Text>
         </View>
       </View>
