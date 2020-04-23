@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text,ScrollView } from 'react-native';
 import * as firebase from 'firebase';
+import 'firebase/firestore';
+import * as d3 from 'd3';
 import DisplayLineChart from '../components/DisplayLineChart';
 import SectionText from '../components/SectionText';
+import { getData } from '../actions/actions'
+import { connect } from 'react-redux';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
+
+    componentDidMount(){
+        firebase.storage().ref('data.csv').getDownloadURL().then(function (url) {
+            d3.csv(url).then(function (result) {
+                // this.props.getAllData(result[result.length-1]);
+                console.log(result);
+            }.bind(this))
+        }.bind(this));
+    }
+
     render() {
         return (
             <ScrollView>
@@ -13,7 +27,7 @@ export default class HomeScreen extends Component {
                     <DisplayLineChart/>
                 </ScrollView>
                 <View style={styles.container}>
-                    <SectionText label="Batch Number" value="Data-001" unit=""/>
+                    <SectionText label="Batch Number" value={this.props.currentRow['Para-001']} unit=""/>
                     <SectionText label="Product" value="Data-002" unit=""/>
                     <SectionText label="Officer In-charge" value="Data-011" unit=""/>
                 </View>
@@ -46,3 +60,15 @@ const styles = StyleSheet.create({
         marginVertical:10,
     },
 })
+
+const mapStateToProps = state => ({
+    currentRow: state.currentRow,
+  });
+
+const mapDispatchToProps = dispatch => ({
+    getAllData: data => {
+        dispatch(getData(data));
+    },
+   });
+
+export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)
