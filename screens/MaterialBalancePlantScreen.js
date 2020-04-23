@@ -11,7 +11,13 @@ class MaterialBalancePlantScreen extends Component {
     render() {
         return (
             <ScrollView>
-            <DisplayLineChart/>
+                <ScrollView horizontal={true}>
+
+                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.productRecovered}/>
+                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.rmConsumed}/>
+                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.effluentToETP}/>
+
+                </ScrollView>
             <View style={styles.container}>
                 <SectionText label="Batch Number" value="Data-001" unit=""/>
                 <SectionText label="Product" value="Data-002" unit=""/>
@@ -56,6 +62,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     currentRow: state.currentRow,
+    productRecovered: state.productRecovered,
+    rmConsumed: state.rmConsumed,
+    effluentToETP: state.effluentToETP,
+    graphLabel: state.graphLabel
 });
 
 const mapDispatchToProps = dispatch => ({

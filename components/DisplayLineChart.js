@@ -22,7 +22,11 @@ export default class DisplayLineChart extends Component {
                 <LineChart
                     data={{
                         labels: this.props.graphLabel,
-                        datasets: this.props.graphData
+                        datasets: [
+                            {
+                                data: this.props.graphData,
+                            }
+                        ]
                     }}
                     width={Dimensions.get("window").width*0.95} // from react-native
                     height={300}
@@ -34,7 +38,7 @@ export default class DisplayLineChart extends Component {
                         backgroundGradientFrom: "#ffffff",
                         backgroundGradientTo: "#ffffff",
                         // decimalPlaces: 2, // optional, defaults to 2dp
-                        color: (opacity = 1) => '#000000',
+                        color: (opacity = 1) => 'orange',
                         labelColor: (opacity = 1) => '#000000',
                         fillShadowGradient:'#ffffff',
                         fillShadowGradientOpacity:0,  

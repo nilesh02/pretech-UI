@@ -14,39 +14,21 @@ class HomeScreen extends Component {
         firebase.storage().ref('data.csv').getDownloadURL().then(function (url) {
             d3.csv(url).then(function (result) {
                 this.props.getAllData(result);
-                console.log(result);
+                // console.log(result);
             }.bind(this))
         }.bind(this));
     }
 
 
-
     render() {
 
-        let graphData = [
-            {
-                data: [
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                ],
-                color: (opacity = 1) => 'red',
-            },
-            {
-                data: [
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                ],
-                color: (opacity = 1) => '#000000',
-            },
-
-        ]
         return (
             <ScrollView>
                 <ScrollView horizontal={true}>
-                    <DisplayLineChart graphLabel={['Jan', 'Feb', 'Mar']} graphData={graphData}/>
-                    <DisplayLineChart graphLabel={['Jan', 'Feb', 'Mar']} graphData={graphData}/>
+                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.productRecovered}/>
+                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.rmConsumed}/>
+                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.energyConsumed}/>
+
                 </ScrollView>
                 <View style={styles.container}>
                     <SectionText label="Batch Number" value='Data-001' unit=""/>
@@ -85,6 +67,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     currentRow: state.currentRow,
+    productRecovered: state.productRecovered,
+    rmConsumed: state.rmConsumed,
+    energyConsumed: state.energyConsumed,
+    graphLabel: state.graphLabel
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -5,6 +5,7 @@ import SectionText from '../components/SectionText';
 import SectionHeading from '../components/SectionHeading';
 import {getData} from "../actions/actions";
 import {connect} from "react-redux";
+import {VARIABLES} from "../utils/utils";
 
 class MaterialBalanceEQPScreen extends Component {
     render() {
@@ -35,7 +36,7 @@ class MaterialBalanceEQPScreen extends Component {
             <View style={styles.container}>
                 <SectionHeading heading="Current Batch" />
                 <SectionText label="Feed" value={this.props.currentRow['Para-004']} unit="KG"/>
-                <SectionText label="To Decantation" value={this.props.currentRow['Para-009']} unit="kG"/>
+                <SectionText label="To Decantation" value={this.props.currentRow[VARIABLES.PARA_009]} unit="kG"/>
                 <SectionText label="Product Recovered" value={this.props.currentRow['Para-010']} unit="KG"/>
                 <SectionText label="Matl. In Process" value="Cpara-013" unit="kG"/>
             </View>

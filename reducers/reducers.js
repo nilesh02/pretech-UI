@@ -3,8 +3,11 @@ import {parseGraphData} from "../utils/utils";
 
 const initialState = {
     currentRow: {},
-    productRecoveredData : [],
-    graphLabel: []
+    graphLabel: ['0'],
+    productRecovered: [0],
+    rmConsumed: [0],
+    energyConsumed: [0],
+    effluentToETP: [0]
 };
 
 function rootReducer(state = initialState, action) {
@@ -12,9 +15,15 @@ function rootReducer(state = initialState, action) {
         // state.currentRow=[]
         // state.currentRow.push(action.payload);
         let result = action.payload
-        let productRecoveredData = parseGraphData(result);
+        let graphData = parseGraphData(result);
+        console.log(graphData)
         return Object.assign({}, state, {
-            currentRow: result[result.length - 1]
+            currentRow: result[result.length - 1],
+            graphLabel: graphData.label,
+            productRecovered: graphData.productRecovered,
+            rmConsumed: graphData.rmConsumed,
+            energyConsumed: graphData.energyConsumed,
+            effluentToETP: graphData.effluentToETP
         });
     }
     return state;
