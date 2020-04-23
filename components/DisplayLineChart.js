@@ -16,39 +16,13 @@ let pieData1 = [
   
 export default class DisplayLineChart extends Component {
 
-    
-
     render() {
         return (
             <View>
                 <LineChart
                     data={{
-                        labels: ["January", "February", "March", "April", "May", "June"],
-                        datasets: [
-                            {
-                                data: [
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100
-                                ],
-                                color: (opacity = 1) => 'red',
-                            },
-                            {
-                                data: [
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100
-                                ],
-                                color: (opacity = 1) => '#000000',
-                            },
-                            
-                        ]
+                        labels: this.props.graphLabel,
+                        datasets: this.props.graphData
                     }}
                     width={Dimensions.get("window").width*0.95} // from react-native
                     height={300}
