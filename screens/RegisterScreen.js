@@ -50,7 +50,7 @@ export default class RegisterScreen extends Component {
 
         // console.log("email - "+this.state.email," Password - "+ this.state.Password, " Confirm-Password- "+this.state.ConfirmPassword);
         
-        if(this.state.emailFlag==true && this.state.PasswordFlag==true && this.state.ConfirmPasswordFlag==true){
+        if(this.state.emailFlag===true && this.state.PasswordFlag===true && this.state.ConfirmPasswordFlag===true){
             firebase
 				.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.Password)

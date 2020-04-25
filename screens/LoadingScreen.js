@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ActivityIndicator, StyleSheet,YellowBox  } from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import {updateBdata} from '../actions/actions'
@@ -17,17 +17,17 @@ class LoadingScreen extends React.Component {
             messagingSenderId: "714106496514",
             appId: "1:714106496514:web:40a17f5f0af225dea1691b",
             measurementId: "G-60N4PNB2QH"
-          };
+        };
 
         firebase.initializeApp(firebaseConfig);
 
         firebase.firestore().collection("collections").doc("documents").onSnapshot((doc) => {
             if (doc.exists) {
-                let result={
-                    BDATA_001:parseFloat(doc.data().BDATA_001),
-                    BDATA_002:parseFloat(doc.data().BDATA_002),
-                    BDATA_003:parseFloat(doc.data().BDATA_003),
-                    BDATA_004:parseFloat(doc.data().BDATA_004)
+                let result = {
+                    BDATA_001: parseFloat(doc.data().BDATA_001),
+                    BDATA_002: parseFloat(doc.data().BDATA_002),
+                    BDATA_003: parseFloat(doc.data().BDATA_003),
+                    BDATA_004: parseFloat(doc.data().BDATA_004)
                 }
                 this.props.updateAllBdata(result);
             } else {
@@ -43,11 +43,12 @@ class LoadingScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>Loading</Text>
-                <ActivityIndicator size="large" />
+                <ActivityIndicator size="large"/>
             </View>
         )
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -8,7 +8,7 @@ import { VARIABLES } from '../utils/utils';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-class SectionInputAdmin extends Component {
+export default class SectionInput extends Component {
 
   constructor(props) {
     super(props);

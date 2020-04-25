@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import React, {Component} from 'react';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import SectionText from '../components/SectionText';
 import SectionInputAdmin from '../components/SectionInputAdmin';
 import Button from '../components/Button';
-import { connect } from 'react-redux';
-import { VARIABLES } from '../utils/utils';
+import {connect} from 'react-redux';
+import {VARIABLES} from '../utils/utils';
 
 class SettingsScreen extends Component {
 
@@ -57,11 +57,5 @@ const mapStateToProps = state => ({
     BDATA_003: state.BDATA_003,
     BDATA_004: state.BDATA_004,
 });
-
-// const mapDispatchToProps = dispatch => ({
-//     updateAllBdata: data => {
-//         dispatch(updateBdata(data));
-//     },
-// });
 
 export default connect(mapStateToProps)(SettingsScreen)
