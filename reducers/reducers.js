@@ -1,5 +1,10 @@
 import {GET_DATA, BDATA, BDATA_001, BDATA_002, BDATA_003, BDATA_004, GET_BENCHMARKS} from "../constants/action-types";
-import {calculateTotalTime, parseGraphData, calculate_P_Alt_Variables} from "../utils/utils";
+import {
+    calculateTotalTime,
+    parseGraphData,
+    calculate_P_Alt_Variables,
+    calculate_C_Para_Variables
+} from "../utils/utils";
 
 const initialState = {
     currentRow: {},
@@ -16,8 +21,6 @@ const initialState = {
     BDATA_002: 0,
     BDATA_003: 0,
     BDATA_004: 0,
-    BDATA_005: 0,
-    BDATA_006: 0,
 };
 
 function rootReducer(state = initialState, action) {
@@ -29,6 +32,8 @@ function rootReducer(state = initialState, action) {
             let graphData = parseGraphData(result);
             let totalTimeDifferenceInMinutes = calculateTotalTime(result);
             let P_ALT = calculate_P_Alt_Variables(result[result.length - 1], state.benchmarkRow, totalTimeDifferenceInMinutes)
+            let C_PARA = calculate_C_Para_Variables(result[result.length - 1], state.benchmarkRow, totalTimeDifferenceInMinutes,
+                P_ALT, BDATA_001, BDATA_002, BDATA_003, BDATA_004)
             // console.log(graphData)
             return Object.assign({}, state, {
                 currentRow: result[result.length - 1],
@@ -38,7 +43,8 @@ function rootReducer(state = initialState, action) {
                 energyConsumed: graphData.energyConsumed,
                 effluentToETP: graphData.effluentToETP,
                 totalTimeDifferenceInMinutes: totalTimeDifferenceInMinutes,
-                P_ALT: P_ALT
+                P_ALT: P_ALT,
+                C_PARA: C_PARA
             });
 
         case GET_BENCHMARKS:

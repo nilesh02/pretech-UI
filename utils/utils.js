@@ -53,19 +53,44 @@ export const calculateTotalTime = (data) => {
     return (Math.round(((endDateTime - startDateTime) / 1000) / 60));
 }
 
-export const calculate_C_Para_Variables = (currentRow, benchmarkRow, totalTimeDifferenceInMinutes, P_ALT, BDATA_001, BDATA_002, BDATA_003, BDATA_004, BDATA_005, BDATA_006) => {
+export const calculate_C_Para_Variables = (currentRow, benchmarkRow, totalTimeDifferenceInMinutes, P_ALT, BDATA_001, BDATA_002, BDATA_003, BDATA_004) => {
 
     let C_PARA_001 = currentRow[VARIABLES.PARA_001] / totalTimeDifferenceInMinutes;
+
+    //Change PARA_002 to as discussed with business
     let C_PARA_002 = ((currentRow[VARIABLES.PARA_002] - BDATA_003) + (currentRow[VARIABLES.PARA_018] * BDATA_004) + (currentRow[VARIABLES.PARA_001] * BDATA_001)) * (benchmarkRow[VARIABLES.DATA_009]) / (currentRow[VARIABLES.PARA_001])
+
     let C_PARA_003 = (benchmarkRow[VARIABLES.DATA_009] * benchmarkRow[VARIABLES.BM_010]) / 100
     let C_PARA_004 = ((benchmarkRow[VARIABLES.DATA_009] * benchmarkRow[VARIABLES.BM_010]) - currentRow[VARIABLES.PARA_010]) / C_PARA_001
     let C_PARA_005 = P_ALT.P_ALT_001 > C_PARA_004 ? P_ALT.P_ALT_001 : C_PARA_004
+    let C_PARA_008 = currentRow[VARIABLES.PARA_001] - currentRow[VARIABLES.PARA_010] - currentRow[VARIABLES.PARA_012]
 
-    let C_PARA_006 = P_ALT.P_ALT_001 > C_PARA_004 ? P_ALT.P_ALT_001 : C_PARA_004
+    //Change PARA_002 to as discussed with business
+    let C_PARA_009 = currentRow[VARIABLES.PARA_004] + currentRow[VARIABLES.PARA_002]
 
+    //Change PARA_002 to as discussed with business
+    let C_PARA_010 = currentRow[VARIABLES.PARA_003] + currentRow[VARIABLES.PARA_002]
 
+    let C_PARA_011 = currentRow[VARIABLES.PARA_001] + currentRow[VARIABLES.PARA_002] - C_PARA_009 - C_PARA_010
 
+    //Change C_PARA_002 to as discussed with business
+    let C_PARA_012 = currentRow[VARIABLES.PARA_003] - C_PARA_011 - C_PARA_002
 
+    let C_PARA_013 = currentRow[VARIABLES.PARA_004] - C_PARA_009 - C_PARA_010
+
+    return {
+        C_PARA_001: C_PARA_001,
+        C_PARA_002: C_PARA_002,
+        C_PARA_003: C_PARA_003,
+        C_PARA_004: C_PARA_004,
+        C_PARA_005: C_PARA_005,
+        C_PARA_008: C_PARA_008,
+        C_PARA_009: C_PARA_009,
+        C_PARA_010: C_PARA_010,
+        C_PARA_011: C_PARA_011,
+        C_PARA_012: C_PARA_012,
+        C_PARA_013: C_PARA_013
+    }
 }
 
 export const calculate_P_Alt_Variables = (currentRow, benchmarkRow, totalTimeDifferenceInMinutes) => {
