@@ -79,17 +79,17 @@ export const calculate_C_Para_Variables = (currentRow, benchmarkRow, totalTimeDi
     let C_PARA_013 = currentRow[VARIABLES.PARA_004] - C_PARA_009 - C_PARA_010
 
     return {
-        C_PARA_001: C_PARA_001,
-        C_PARA_002: C_PARA_002,
-        C_PARA_003: C_PARA_003,
-        C_PARA_004: C_PARA_004,
-        C_PARA_005: C_PARA_005,
-        C_PARA_008: C_PARA_008,
-        C_PARA_009: C_PARA_009,
-        C_PARA_010: C_PARA_010,
-        C_PARA_011: C_PARA_011,
-        C_PARA_012: C_PARA_012,
-        C_PARA_013: C_PARA_013
+        C_PARA_001: Math.round(C_PARA_001 *100)/100,
+        C_PARA_002: Math.round(C_PARA_002 *100)/100,
+        C_PARA_003: Math.round(C_PARA_003 *100)/100,
+        C_PARA_004: Math.round(C_PARA_004 *100)/100,
+        C_PARA_005: Math.round(C_PARA_005 *100)/100,
+        C_PARA_008: Math.round(C_PARA_008 *100)/100,
+        C_PARA_009: Math.round(C_PARA_009 *100)/100,
+        C_PARA_010: Math.round(C_PARA_010 *100)/100,
+        C_PARA_011: Math.round(C_PARA_011 *100)/100,
+        C_PARA_012: Math.round(C_PARA_012 *100)/100,
+        C_PARA_013: Math.round(C_PARA_013 *100)/100,
     }
 }
 
