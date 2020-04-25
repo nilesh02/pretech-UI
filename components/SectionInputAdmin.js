@@ -16,7 +16,18 @@ class SectionInputAdmin extends Component {
       label: this.props.label,
       value: this.props.value,
       unit: this.props.unit,
+      Bdata: this.props.Bdata
     };
+  }
+
+  handleChange(text){
+    this.setState({ value: text });
+    switch (this.state.Bdata){
+      case VARIABLES.BDATA_001: this.props.updateBdata_001(text); break;
+      case VARIABLES.BDATA_002: this.props.updateBdata_002(text); break;
+      case VARIABLES.BDATA_003: this.props.updateBdata_003(text); break;
+      case VARIABLES.BDATA_004: this.props.updateBdata_004(text); break;
+    }
   }
 
   render() {
@@ -24,7 +35,7 @@ class SectionInputAdmin extends Component {
       <View style={styles.container}>
         <Text style={styles.label}>{this.state.label}</Text>
         <View style={styles.innerContainer}>
-          <TextInput style={styles.value} keyboardType={'numeric'} value={String(this.state.value)} onChangeText={(text) => this.setState({ value: text })} />
+          <TextInput style={styles.value} keyboardType={'numeric'} value={String(this.state.value)} onChangeText={(text) => this.handleChange(text)} />
           <Text style={styles.unit}>{this.state.unit}</Text>
         </View>
       </View>
@@ -73,3 +84,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+const mapDispatchToProps = dispatch => ({
+  updateBdata_001: data => {
+    dispatch(updateBdata_001(data));
+  },
+  updateBdata_002: data => {
+    dispatch(updateBdata_002(data));
+  },
+  updateBdata_003: data => {
+    dispatch(updateBdata_003(data));
+  },
+  updateBdata_004: data => {
+    dispatch(updateBdata_004(data));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(SectionInputAdmin)

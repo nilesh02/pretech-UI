@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, ActivityIndicator, StyleSheet,YellowBox  } from 'react-native';
 import * as firebase from 'firebase';
+import 'firebase/firestore';
+import {updateBdata} from '../actions/actions'
+import {connect} from 'react-redux';
 
-
-export default class LoadingScreen extends React.Component {
+class LoadingScreen extends React.Component {
 
     componentDidMount() {
         const firebaseConfig = {
@@ -18,10 +20,23 @@ export default class LoadingScreen extends React.Component {
           };
 
         firebase.initializeApp(firebaseConfig);
-        
-        firebase.auth().onAuthStateChanged(user => {
-            this.props.navigation.navigate(user ? 'MainScreen' : 'LoginScreen')
-        })
+
+        firebase.firestore().collection("collections").doc("documents").onSnapshot((doc) => {
+            if (doc.exists) {
+                let result={
+                    BDATA_001:parseFloat(doc.data().BDATA_001),
+                    BDATA_002:parseFloat(doc.data().BDATA_002),
+                    BDATA_003:parseFloat(doc.data().BDATA_003),
+                    BDATA_004:parseFloat(doc.data().BDATA_004)
+                }
+                this.props.updateAllBdata(result);
+            } else {
+                console.log("no document found");
+            }
+            firebase.auth().onAuthStateChanged(user => {
+                this.props.navigation.navigate(user ? 'MainScreen' : 'LoginScreen')
+            })
+        });
     }
 
     render() {
@@ -40,3 +55,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }
 })
+
+const mapDispatchToProps = dispatch => ({
+    updateAllBdata: data => {
+        dispatch(updateBdata(data));
+    },
+});
+
+export default connect(null, mapDispatchToProps)(LoadingScreen)

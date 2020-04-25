@@ -30,8 +30,8 @@ export default class DisplayLineChart extends Component {
                     }}
                     width={Dimensions.get("window").width*0.95} // from react-native
                     height={300}
-                    yAxisLabel="$"
-                    yAxisSuffix="k"
+                    yAxisLabel=""
+                    yAxisSuffix=""
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
                         backgroundColor: "#ffffff",

@@ -14,7 +14,7 @@ export const parseGraphData = (data) => {
 
     let labelArray = graphData.map(item => item[VARIABLES.TIME]);
     label = labelArray.map(item => item.split(':')[1]);
-    console.log(label)
+    // console.log(label)
 
     let productRecovered = graphData.map(item => parseInt(item[VARIABLES.PARA_010]));
     let rmConsumed = graphData.map(item => parseInt(item[VARIABLES.PARA_001]));
@@ -49,5 +49,9 @@ export const VARIABLES = {
     PARA_016: 'Para-016',
     PARA_017: 'Para-017',
     PARA_018: 'Para-018',
-    TIME: 'Time'
+    TIME: 'Time',
+    BDATA_001: 'Bdata_001',
+    BDATA_002: 'Bdata_002',
+    BDATA_003: 'Bdata_003',
+    BDATA_004: 'Bdata_004',
 }
