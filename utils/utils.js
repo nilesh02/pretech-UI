@@ -79,17 +79,17 @@ export const calculate_C_Para_Variables = (currentRow, benchmarkRow, totalTimeDi
     let C_PARA_013 = currentRow[VARIABLES.PARA_004] - C_PARA_009 - C_PARA_010
 
     return {
-        C_PARA_001: Math.round(C_PARA_001 *100)/100,
-        C_PARA_002: Math.round(C_PARA_002 *100)/100,
-        C_PARA_003: Math.round(C_PARA_003 *100)/100,
-        C_PARA_004: Math.round(C_PARA_004 *100)/100,
-        C_PARA_005: Math.round(C_PARA_005 *100)/100,
-        C_PARA_008: Math.round(C_PARA_008 *100)/100,
-        C_PARA_009: Math.round(C_PARA_009 *100)/100,
-        C_PARA_010: Math.round(C_PARA_010 *100)/100,
-        C_PARA_011: Math.round(C_PARA_011 *100)/100,
-        C_PARA_012: Math.round(C_PARA_012 *100)/100,
-        C_PARA_013: Math.round(C_PARA_013 *100)/100,
+        C_PARA_001: parseFloat(C_PARA_001).toFixed(2),
+        C_PARA_002: parseFloat(C_PARA_002).toFixed(2),
+        C_PARA_003: parseFloat(C_PARA_003).toFixed(2),
+        C_PARA_004: parseFloat(C_PARA_004).toFixed(2),
+        C_PARA_005: parseFloat(C_PARA_005).toFixed(2),
+        C_PARA_008: parseFloat(C_PARA_008).toFixed(2),
+        C_PARA_009: parseFloat(C_PARA_009).toFixed(2),
+        C_PARA_010: parseFloat(C_PARA_010).toFixed(2),
+        C_PARA_011: parseFloat(C_PARA_011).toFixed(2),
+        C_PARA_012: parseFloat(C_PARA_012).toFixed(2),
+        C_PARA_013: parseFloat(C_PARA_013).toFixed(2),
     }
 }
 
@@ -100,8 +100,8 @@ export const calculate_P_Alt_Variables = (currentRow, benchmarkRow, totalTimeDif
     let P_ALT_002 = (parseFloat(currentRow[VARIABLES.PARA_010]) / parseFloat(currentRow[VARIABLES.PARA_001])) * parseFloat(benchmarkRow[VARIABLES.DATA_009])
 
     return {
-        P_ALT_001: P_ALT_001,
-        P_ALT_002: P_ALT_002
+        P_ALT_001: parseFloat(P_ALT_001).toFixed(2),
+        P_ALT_002: parseFloat(P_ALT_002).toFixed(2)
     }
 }
 

@@ -33,7 +33,7 @@ function rootReducer(state = initialState, action) {
             let totalTimeDifferenceInMinutes = calculateTotalTime(result);
             let P_ALT = calculate_P_Alt_Variables(result[result.length - 1], state.benchmarkRow, totalTimeDifferenceInMinutes)
             let C_PARA = calculate_C_Para_Variables(result[result.length - 1], state.benchmarkRow, totalTimeDifferenceInMinutes,
-                P_ALT, BDATA_001, BDATA_002, BDATA_003, BDATA_004)
+                P_ALT, state.BDATA_001, state.BDATA_002, state.BDATA_003, state.BDATA_004)
             // console.log(graphData)
             return Object.assign({}, state, {
                 currentRow: result[result.length - 1],
