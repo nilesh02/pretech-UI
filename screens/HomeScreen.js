@@ -45,14 +45,14 @@ class HomeScreen extends Component {
                 </View>
 
                 <View style={styles.container}>
-                    <SectionText label="Est. Time to Finish" value="Cpara-005" unit="days/hrs/min"/>
-                    <SectionText label="Est. Cost of Batch" value="Rs." unit="Cpara-002"/>
+                    <SectionText label="Est. Time to Finish" value={this.props.C_PARA.C_PARA_005} unit="days/hrs/min"/>
+                    <SectionText label="Est. Cost of Batch" value="Rs." unit={this.props.C_PARA.C_PARA_002}/>
                 </View>
 
                 <View style={styles.container}>
-                    <SectionText label="Current Production Rate" value="Cpara-001" unit="KG/hr"/>
-                    <SectionText label="Est. Amt. of Production" value="PAlt-002" unit="kG"/>
-                    <SectionText label="Target Production" value="CPara-003" unit="kG"/>
+                    <SectionText label="Current Production Rate" value={this.props.C_PARA.C_PARA_001} unit="KG/hr"/>
+                    <SectionText label="Est. Amt. of Production" value={this.props.P_ALT.P_ALT_002} unit="kG"/>
+                    <SectionText label="Target Production" value={this.props.C_PARA.C_PARA_003} unit="kG"/>
                 </View>
             </ScrollView>
         )
@@ -74,7 +74,9 @@ const mapStateToProps = state => ({
     productRecovered: state.productRecovered,
     rmConsumed: state.rmConsumed,
     energyConsumed: state.energyConsumed,
-    graphLabel: state.graphLabel
+    graphLabel: state.graphLabel,
+    C_PARA: state.C_PARA,
+    P_ALT: state.P_ALT,
 });
 
 const mapDispatchToProps = dispatch => ({

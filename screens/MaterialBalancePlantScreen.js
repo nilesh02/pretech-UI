@@ -27,7 +27,7 @@ class MaterialBalancePlantScreen extends Component {
                     <SectionText label="RM Consumed" value={this.props.currentRow[VARIABLES.PARA_001]} unit="KG"/>
                     <SectionText label="Product Recovered" value={this.props.currentRow[VARIABLES.PARA_010]} unit="KG"/>
                     <SectionText label="Effluent to ETP" value={this.props.currentRow[VARIABLES.PARA_012]} unit="kG"/>
-                    <SectionText label="Matl. In Process" value="Cpara-008" unit="kG"/>
+                    <SectionText label="Matl. In Process" value={this.props.C_PARA.C_PARA_008} unit="kG"/>
                 </View>
 
                 <View style={styles.container}>
@@ -35,7 +35,7 @@ class MaterialBalancePlantScreen extends Component {
                     <SectionText label="RM Consumed" value={this.props.currentRow[VARIABLES.PARA_001]} unit="KG"/>
                     <SectionText label="Product Recovered" value={this.props.currentRow[VARIABLES.PARA_010]} unit="KG"/>
                     <SectionText label="Effluent to ETP" value={this.props.currentRow[VARIABLES.PARA_012]} unit="kG"/>
-                    <SectionText label="Matl. In Process" value="Cpara-008" unit="kG"/>
+                    <SectionText label="Matl. In Process" value={this.props.C_PARA.C_PARA_008} unit="kG"/>
                 </View>
 
                 <View style={styles.container}>
@@ -43,7 +43,7 @@ class MaterialBalancePlantScreen extends Component {
                     <SectionText label="RM Consumed" value={this.props.currentRow[VARIABLES.PARA_001]} unit="KG"/>
                     <SectionText label="Product Recovered" value={this.props.currentRow[VARIABLES.PARA_010]} unit="KG"/>
                     <SectionText label="Effluent to ETP" value={this.props.currentRow[VARIABLES.PARA_012]} unit="kG"/>
-                    <SectionText label="Matl. In Process" value="Cpara-008" unit="kG"/>
+                    <SectionText label="Matl. In Process" value={this.props.C_PARA.C_PARA_008} unit="kG"/>
                 </View>
             </ScrollView>
         )
@@ -65,7 +65,8 @@ const mapStateToProps = state => ({
     productRecovered: state.productRecovered,
     rmConsumed: state.rmConsumed,
     effluentToETP: state.effluentToETP,
-    graphLabel: state.graphLabel
+    graphLabel: state.graphLabel,
+    C_PARA: state.C_PARA,
 });
 
 export default connect(mapStateToProps)(MaterialBalancePlantScreen)

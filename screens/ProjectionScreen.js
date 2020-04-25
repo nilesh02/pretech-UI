@@ -17,9 +17,9 @@ class ProjectionScreen extends Component {
                     <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
                 </View>
                 <View style={styles.container}>
-                    <SectionText label="Current Production Rate" value="CPara-001" unit="KG/hr"/>
-                    <SectionText label="Est. Time to Finish" value="PAlt-001" unit="days/hrs/min"/>
-                    <SectionText label="Est. Amt. of Production" value="PAlt-002" unit="KG"/>
+                    <SectionText label="Current Production Rate" value={this.props.C_PARA.C_PARA_001} unit="KG/hr"/>
+                    <SectionText label="Est. Time to Finish" value={this.props.P_ALT.P_ALT_001} unit="days/hrs/min"/>
+                    <SectionText label="Est. Amt. of Production" value={this.props.P_ALT.P_ALT_002} unit="KG"/>
                 </View>
 
                 <View style={styles.container}>
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     currentRow: state.currentRow,
     benchmarkRow: state.benchmarkRow,
-    BDATA_005: state.BDATA_005,
-    BDATA_006: state.BDATA_006,
+    C_PARA: state.C_PARA,
+    P_ALT: state.P_ALT,
 });
 
 export default connect(mapStateToProps)(ProjectionScreen)
