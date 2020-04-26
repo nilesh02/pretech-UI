@@ -23,7 +23,8 @@ const initialState = {
     BDATA_004: 0,
     GRAPH_P_ALT_001: [0],
     GRAPH_P_ALT_002: [0],
-    GRAPH_C_PARA_001: [0]
+    GRAPH_C_PARA_001: [0],
+    GRAPH_C_PARA_008: [0]
 };
 
 function rootReducer(state = initialState, action) {
@@ -51,6 +52,7 @@ function rootReducer(state = initialState, action) {
                 GRAPH_P_ALT_001: graphData.P_ALT_001,
                 GRAPH_P_ALT_002: graphData.P_ALT_002,
                 GRAPH_C_PARA_001: graphData.C_PARA_001,
+                GRAPH_C_PARA_008: graphData.C_PARA_008,
             });
 
         case GET_BENCHMARKS:

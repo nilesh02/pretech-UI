@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, Dimensions, TextInput } from 'react-native';
+import { Dropdown } from 'react-native-material-dropdown';
 import { theme } from '../core/theme';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default class SectionInput extends Component {
+export default class SectionInputDropDown extends Component {
 
   constructor(props) {
     super(props);
@@ -13,18 +14,35 @@ export default class SectionInput extends Component {
       label: this.props.label,
       value: this.props.value,
       unit: this.props.unit,
+      dropDown: 'Rise',
     };
   }
 
   render() {
+    let data = [{
+      value: 'Rise',
+    }, {
+      value: 'Fall',
+    }];
     return (
       <View style={styles.container}>
         <Text style={styles.label}>{this.state.label}</Text>
         <View style={styles.innerContainer}>
           <TextInput style={styles.value} keyboardType={'numeric'} value={String(this.state.value)} onChangeText={(text) => {
-              this.setState({value:text})
+              this.setState({value:text});
+              this.props.onChangeHandler(text,this.state.dropDown)
             }} />
           <Text style={styles.unit}>{this.state.unit}</Text>
+          <Dropdown
+            data={data}
+            value={this.state.dropDown}
+            containerStyle={{width:'60%'}}
+            dropdownOffset={{top:10,left:0}}
+            onChangeText={(text) =>{
+              this.setState({dropDown:text});
+              this.props.onChangeHandler(this.state.value,text)
+            }}
+          />
         </View>
       </View>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,Dimensions} from 'react-native';
+import { View,Dimensions,Text} from 'react-native';
 import {
     BarChart
 } from "react-native-chart-kit";
@@ -8,26 +8,19 @@ export default class DisplayBarChart extends Component {
     render() {
         return (
             <View>
+                <Text style={{
+                    alignSelf: 'center',
+                    fontSize: 20,
+                }}> {this.props.graphName}</Text>
                 <BarChart
                     data={{
-                        labels: ["January", "February", "March", "April", "May", "June"],
-                        datasets: [
-                            {
-                                data: [
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100
-                                ]
-                            }
-                        ]
+                        labels: this.props.graphLabel,
+                        datasets: this.props.graphData
                     }}
                     width={Dimensions.get("window").width*0.95} // from react-native
-                    height={300}
-                    yAxisLabel="$"
-                    yAxisSuffix="k"
+                    height={180}
+                    yAxisLabel=""
+                    yAxisSuffix=""
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
                         backgroundColor: "#ffffff",
@@ -47,6 +40,10 @@ export default class DisplayBarChart extends Component {
                         borderRadius:0
                     }}
                 />
+                <Text style={{
+                    alignSelf: 'center',
+                    marginBottom: 12,
+                }}> {this.props.xAxisLabel}</Text>
             </View>
         );
     }

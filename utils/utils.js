@@ -33,7 +33,8 @@ export const parseGraphData = (data, benchmarkRow) => {
         effluentToETP: effluentToETP,
         P_ALT_001: projectionScreenData.P_ALT_001,
         P_ALT_002: projectionScreenData.P_ALT_002,
-        C_PARA_001: projectionScreenData.C_PARA_001
+        C_PARA_001: projectionScreenData.C_PARA_001,
+        C_PARA_008: projectionScreenData.C_PARA_008
     }
 }
 
@@ -43,6 +44,7 @@ export const calculateProjectionScreenGraphData = (startIndex, lastOneHourData, 
     let finalDataForP_ALT_01 = [];
     let finalDataForP_ALT_02 = [];
     let finalDataForC_PARA_01 = [];
+    let finalDataForC_PARA_08 = [];
 
     let initialCompleteData = [...completeData];
 
@@ -53,8 +55,9 @@ export const calculateProjectionScreenGraphData = (startIndex, lastOneHourData, 
 
         let P_ALT = calculate_P_Alt_Variables(lastOneHourData[i], benchmarkRow, totalTime);
         let C_PARA_001 = (lastOneHourData[i][VARIABLES.PARA_001]) / totalTime;
-
+        let C_PARA_008= lastOneHourData[i][VARIABLES.PARA_001] - lastOneHourData[i][VARIABLES.PARA_010] - lastOneHourData[i][VARIABLES.PARA_012]
         finalDataForC_PARA_01[i] = C_PARA_001;
+        finalDataForC_PARA_08[i] = C_PARA_008;
         finalDataForP_ALT_01[i] = P_ALT.P_ALT_001;
         finalDataForP_ALT_02[i] = P_ALT.P_ALT_002;
         initialCompleteData = [...completeData];
@@ -65,7 +68,8 @@ export const calculateProjectionScreenGraphData = (startIndex, lastOneHourData, 
     return {
         P_ALT_001: finalDataForP_ALT_01,
         P_ALT_002: finalDataForP_ALT_02,
-        C_PARA_001: finalDataForC_PARA_01
+        C_PARA_001: finalDataForC_PARA_01,
+        C_PARA_008: finalDataForC_PARA_08
     }
 
 }

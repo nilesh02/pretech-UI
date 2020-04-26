@@ -48,3 +48,31 @@ export function updateBdata_004(payload) {
         payload
     };
 }
+
+export function updateBdata005_Rise(payload) {
+    return {
+        type: B_DATA_005_RISE,
+        payload
+    };
+}
+
+export function updateBdata005_Fall(payload) {
+    return {
+        type: B_DATA_005_FALL,
+        payload
+    };
+}
+
+export function updateBdata006_Rise(payload) {
+    return {
+        type: B_DATA_006_RISE,
+        payload
+    };
+}
+
+export function updateBdata006_Fall(payload) {
+    return {
+        type: B_DATA_006_FALL,
+        payload
+    };
+}

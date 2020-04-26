@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import SectionText from '../components/SectionText';
-import SectionInput from '../components/SectionInput';
+import SectionInputDropDown from '../components/SectionInputDropDown';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import {connect} from "react-redux";
 import SectionToggle from "../components/SectionToggle";
@@ -13,12 +13,10 @@ class ProjectionScreen extends Component {
         super(props);
         this.state = {
             toggleHorizontal: true,
-            B_DATA_005_RISE:0,
-            B_DATA_005_FALL:0,
-            B_DATA_006_RISE:0,
-            B_DATA_006_FALL:0,
+            B_DATA_005:0,
+            B_DATA_006:0,
             C_PARA_006:this.props.P_ALT.P_ALT_001,
-            C_PARA_007:this.props.P_ALT.P_ALT_001
+            C_PARA_007:this.props.P_ALT.P_ALT_001,
         };
     }
 
@@ -26,40 +24,43 @@ class ProjectionScreen extends Component {
         this.setState({toggleHorizontal: !switchValue})
     }
 
-    onChangeB_Data_005(value,isRise) {
-        if(isRise){
-            if(value!=0){
-                let temp=((this.props.C_PARA.C_PARA_004/value)/100)
-                this.setState({B_DATA_005_FALL:0,B_DATA_005_RISE:value,C_PARA_006:this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp})
+    onChangeB_Data_005(value,dropDownValue) {
+        // console.log(value,dropDownValue);
+        if(dropDownValue==='Rise'){
+            if (value > 0) {
+                // let temp=((this.props.C_PARA.C_PARA_004/value)/100)
+                let temp = this.props.C_PARA.C_PARA_004 * (1 + (value / 100))
+                this.setState({B_DATA_005: value, C_PARA_006: this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp })
             } else{
-                this.setState({B_DATA_005_FALL:0,B_DATA_005_RISE:value})
+                this.setState({B_DATA_005: value, C_PARA_006: this.props.P_ALT.P_ALT_001 })
             }
-        } else{
-            let magnitude=value*-1;
-            if(value!=0){
-                let temp=((this.props.C_PARA.C_PARA_004/magnitude)/100)
-                this.setState({B_DATA_005_RISE:0,B_DATA_005_FALL:value,C_PARA_006:this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp})
+        } else {
+            if (value > 0) {
+                // let temp=((this.props.C_PARA.C_PARA_004/(value*-1))/100)
+                let temp = this.props.C_PARA.C_PARA_004 * (1 - (value / 100))
+                this.setState({B_DATA_005: value, C_PARA_006: this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp })
             } else{
-                this.setState({B_DATA_005_RISE:0,B_DATA_005_FALL:value})
+                this.setState({B_DATA_005: value, C_PARA_006: this.props.P_ALT.P_ALT_001 })
             }
         }
     }
 
-    onChangeB_Data_006(value,isRise) {
-        if(isRise){
-            if(value!=0){
-                let temp=((this.props.C_PARA.C_PARA_004/value)/100)
-                this.setState({B_DATA_006_FALL:0,B_DATA_006_RISE:value,C_PARA_007:this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp})
+    onChangeB_Data_006(value,dropDownValue) {
+        if(dropDownValue==='Rise'){
+            if (value > 0) {
+                // let temp=((this.props.C_PARA.C_PARA_004/value)/100)
+                let temp = this.props.C_PARA.C_PARA_004 * (1 + (value / 100))
+                this.setState({B_DATA_006: value, C_PARA_007: this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp })
             } else{
-                this.setState({B_DATA_006_FALL:0,B_DATA_006_RISE:value})
+                this.setState({B_DATA_006: value, C_PARA_007: this.props.P_ALT.P_ALT_001 })
             }
-        } else{
-            let magnitude=value*-1;
-            if(value!=0){
-                let temp=((this.props.C_PARA.C_PARA_004/magnitude)/100)
-                this.setState({B_DATA_006_RISE:0,B_DATA_006_FALL:value,C_PARA_007:this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp})
+        } else {
+            if (value > 0) {
+                // let temp=((this.props.C_PARA.C_PARA_004/(value*-1))/100)
+                let temp = this.props.C_PARA.C_PARA_004 * (1 - (value / 100))
+                this.setState({B_DATA_006: value, C_PARA_007: this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp })
             } else{
-                this.setState({B_DATA_006_RISE:0,B_DATA_006_FALL:value})
+                this.setState({B_DATA_006: value, C_PARA_007: this.props.P_ALT.P_ALT_001 })
             }
         }
     }
@@ -140,14 +141,12 @@ class ProjectionScreen extends Component {
                 </View>
 
                 <View style={styles.container}>
-                    <SectionInput label="Expected Rise in Rate-1" value={this.state.B_DATA_005_RISE} unit="%" isRise={true}  onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
-                    <SectionInput label="Expected Fall in Rate-1" value={this.state.B_DATA_005_FALL} unit="%" isRise={false} onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
+                    <SectionInputDropDown label="Expected Rise/Fall in Rate-1" value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
                     <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/>
                 </View>
 
                 <View style={styles.container}>
-                    <SectionInput label="Expected Rise in Rate-2" value={this.state.B_DATA_006_RISE_} unit="%" isRise={true} onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
-                    <SectionInput label="Expected Fall in Rate-2" value={this.state.B_DATA_006_FALL_} unit="%" isRise={false} onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
+                    <SectionInputDropDown label="Expected Rise/Fall in Rate-2" value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
                     <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_007)} unit={DAYS_HOURS_MINS_STRING}/>
                 </View>
             </ScrollView>
