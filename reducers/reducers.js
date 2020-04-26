@@ -21,6 +21,9 @@ const initialState = {
     BDATA_002: 0,
     BDATA_003: 0,
     BDATA_004: 0,
+    GRAPH_P_ALT_001: [0],
+    GRAPH_P_ALT_002: [0],
+    GRAPH_C_PARA_001: [0]
 };
 
 function rootReducer(state = initialState, action) {
@@ -29,7 +32,7 @@ function rootReducer(state = initialState, action) {
     switch (action.type) {
 
         case GET_DATA:
-            let graphData = parseGraphData(result);
+            let graphData = parseGraphData(result, state.benchmarkRow);
             let totalTimeDifferenceInMinutes = calculateTotalTime(result);
             let P_ALT = calculate_P_Alt_Variables(result[result.length - 1], state.benchmarkRow, totalTimeDifferenceInMinutes)
             let C_PARA = calculate_C_Para_Variables(result[result.length - 1], state.benchmarkRow, totalTimeDifferenceInMinutes,
@@ -44,7 +47,10 @@ function rootReducer(state = initialState, action) {
                 effluentToETP: graphData.effluentToETP,
                 totalTimeDifferenceInMinutes: totalTimeDifferenceInMinutes,
                 P_ALT: P_ALT,
-                C_PARA: C_PARA
+                C_PARA: C_PARA,
+                GRAPH_P_ALT_001: graphData.P_ALT_001,
+                GRAPH_P_ALT_002: graphData.P_ALT_002,
+                GRAPH_C_PARA_001: graphData.C_PARA_001,
             });
 
         case GET_BENCHMARKS:

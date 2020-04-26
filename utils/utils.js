@@ -1,7 +1,7 @@
-export const parseGraphData = (data) => {
-    //console.log(data);
+export const parseGraphData = (data, benchmarkRow) => {
 
     let label = [];
+    let completeData = [...data];
     const dataLength = data.length;
     let startIndex = 0;
     let endIndex = dataLength;
@@ -10,8 +10,11 @@ export const parseGraphData = (data) => {
         startIndex = dataLength - 12;
     }
 
+
     //extracting labels
     let graphData = data.splice(startIndex, endIndex);
+
+    let projectionScreenData = calculateProjectionScreenGraphData(startIndex, graphData, completeData, benchmarkRow);
 
     let labelArray = graphData.map(item => item[VARIABLES.TIME]);
     label = labelArray.map(item => item.split(':')[1]);
@@ -27,21 +30,55 @@ export const parseGraphData = (data) => {
         productRecovered: productRecovered,
         rmConsumed: rmConsumed,
         energyConsumed: energyConsumed,
-        effluentToETP: effluentToETP
+        effluentToETP: effluentToETP,
+        P_ALT_001: projectionScreenData.P_ALT_001,
+        P_ALT_002: projectionScreenData.P_ALT_002,
+        C_PARA_001: projectionScreenData.C_PARA_001
     }
+}
+
+
+export const calculateProjectionScreenGraphData = (startIndex, lastOneHourData, completeData, benchmarkRow) => {
+
+    let finalDataForP_ALT_01 = [];
+    let finalDataForP_ALT_02 = [];
+    let finalDataForC_PARA_01 = [];
+
+    let initialCompleteData = [...completeData];
+
+    for (let i = 0; i < lastOneHourData.length; i++) {
+
+        let endIndex = i + startIndex;
+        let totalTime = calculateTotalTime(initialCompleteData.splice(0, endIndex));
+
+        let P_ALT = calculate_P_Alt_Variables(lastOneHourData[i], benchmarkRow, totalTime);
+        let C_PARA_001 = (lastOneHourData[i][VARIABLES.PARA_001]) / totalTime;
+
+        finalDataForC_PARA_01[i] = C_PARA_001;
+        finalDataForP_ALT_01[i] = P_ALT.P_ALT_001;
+        finalDataForP_ALT_02[i] = P_ALT.P_ALT_002;
+        initialCompleteData = [...completeData];
+
+    }
+
+
+    return {
+        P_ALT_001: finalDataForP_ALT_01,
+        P_ALT_002: finalDataForP_ALT_02,
+        C_PARA_001: finalDataForC_PARA_01
+    }
+
 }
 
 export const calculateTotalTime = (data) => {
 
-    let startIndex = 0;
+    let startIndex = getStartIndex(data);
     let endIndex = data.length - 1;
 
     let startTime = data[startIndex][VARIABLES.TIME].split(':')
-
     let endTime = data[endIndex][VARIABLES.TIME].split(':')
 
     let startDate = data[startIndex][VARIABLES.DATE].split('/')
-
     let endDate = data[endIndex][VARIABLES.DATE].split('/')
 
     let startDateTime = new Date(parseInt(startDate[2]), parseInt(startDate[1]), parseInt(startDate[0]),
@@ -95,7 +132,7 @@ export const calculate_C_Para_Variables = (currentRow, benchmarkRow, totalTimeDi
 
 export const calculate_P_Alt_Variables = (currentRow, benchmarkRow, totalTimeDifferenceInMinutes) => {
 
-    let P_ALT_001 = (parseFloat(benchmarkRow[VARIABLES.DATA_001]) - parseFloat(currentRow[VARIABLES.PARA_001])) / (parseFloat(currentRow[VARIABLES.PARA_001]) / parseFloat(totalTimeDifferenceInMinutes))
+    let P_ALT_001 = (parseFloat(benchmarkRow[VARIABLES.DATA_009]) - parseFloat(currentRow[VARIABLES.PARA_001])) / (parseFloat(currentRow[VARIABLES.PARA_001]) / parseFloat(totalTimeDifferenceInMinutes))
 
     let P_ALT_002 = (parseFloat(currentRow[VARIABLES.PARA_010]) / parseFloat(currentRow[VARIABLES.PARA_001])) * parseFloat(benchmarkRow[VARIABLES.DATA_009])
 
@@ -115,6 +152,28 @@ export const getNormalizedData = (data) => {
     }
 
     return data.map(item => ((item - minimum) / (maximum - minimum)) * 100);
+}
+
+export const getDaysHrsMins = (value) => {
+
+    let mins = parseFloat(value);
+    let hours = parseFloat(mins / 60);
+    let days = parseFloat(hours / 24);
+
+    return (days.toFixed(2) + "/\n" + hours.toFixed(2) + "/\n" + mins.toFixed(2))
+}
+
+const getStartIndex = (data) => {
+
+    if (data.length > 0) {
+        for (let i = 0; i < data.length - 1; i++) {
+            if (data[i][VARIABLES.PARA_001] > 200) {
+                return i;
+            }
+        }
+        return data.length - 1
+    }
+    return 0;
 }
 
 export const VARIABLES = {
@@ -163,3 +222,5 @@ export const VARIABLES = {
     BM_009: 'BM-009',
     BM_010: 'BM-010'
 }
+
+export const DAYS_HOURS_MINS_STRING = "Days/" + "\n" + "Hours/" + "\n" + "Mins"

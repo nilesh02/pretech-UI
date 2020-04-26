@@ -7,7 +7,7 @@ import DisplayLineChart from '../components/DisplayLineChart';
 import SectionText from '../components/SectionText';
 import {getBenchMarks, getData} from '../actions/actions'
 import {connect} from 'react-redux';
-import {getNormalizedData, VARIABLES} from "../utils/utils";
+import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import SectionToggle from "../components/SectionToggle";
 
 class HomeScreen extends Component {
@@ -56,17 +56,14 @@ class HomeScreen extends Component {
         const combinedGraphData = [{
             data: getNormalizedData(this.props.productRecovered),
             color: (opacity = 1) => 'red',
-        },
-            {
-                data: getNormalizedData(this.props.rmConsumed),
-                color: (opacity = 1) => 'orange',
-            },
-            {
-                data: getNormalizedData(this.props.energyConsumed),
-                color: (opacity = 1) => 'blue',
-            }
+        }, {
+            data: getNormalizedData(this.props.rmConsumed),
+            color: (opacity = 1) => 'orange',
+        }, {
+            data: getNormalizedData(this.props.energyConsumed),
+            color: (opacity = 1) => 'blue',
+        }]
 
-        ]
 
 
         return (
@@ -115,7 +112,8 @@ class HomeScreen extends Component {
                 </View>
 
                 <View style={styles.container}>
-                    <SectionText label="Est. Time to Finish" value={this.props.C_PARA.C_PARA_005} unit="days/hrs/min"/>
+                    <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005)}
+                                 unit={DAYS_HOURS_MINS_STRING}/>
                     <SectionText label="Est. Cost of Batch" value="Rs." unit={this.props.C_PARA.C_PARA_002}/>
                 </View>
 

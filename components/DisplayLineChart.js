@@ -36,7 +36,7 @@ export default class DisplayLineChart extends Component {
                         backgroundColor: "#ffffff",
                         backgroundGradientFrom: "#ffffff",
                         backgroundGradientTo: "#ffffff",
-                        decimalPlaces: 0, // optional, defaults to 2dp
+                        decimalPlaces: this.props.decimalPlaces ? this.props.decimalPlaces : 1, // optional, defaults to 2dp
                         color: (opacity = 1) => this.props.color,
                         labelColor: (opacity = 1) => '#000000',
                         fillShadowGradient: '#ffffff',
