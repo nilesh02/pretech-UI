@@ -24,7 +24,7 @@ export default class SectionInput extends Component {
       <View style={styles.container}>
         <Text style={styles.label}>{this.state.label}</Text>
         <View style={styles.innerContainer}>
-          <TextInput style={styles.value} keyboardType={'numeric'} value={String(this.state.value)} onChangeText={(text) => this.setState({ value: text })} />
+          <TextInput style={styles.value} keyboardType={'numeric'} value={String(this.state.value)} onChangeText={(text) => this.props.onChangeHandler(text,this.props.isRise)} />
           <Text style={styles.unit}>{this.state.unit}</Text>
         </View>
       </View>

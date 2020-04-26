@@ -12,12 +12,56 @@ class ProjectionScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toggleHorizontal: true
+            toggleHorizontal: true,
+            B_DATA_005_RISE:0,
+            B_DATA_005_FALL:0,
+            B_DATA_006_RISE:0,
+            B_DATA_006_FALL:0,
+            C_PARA_006:this.props.P_ALT.P_ALT_001,
+            C_PARA_007:this.props.P_ALT.P_ALT_001
         };
     }
 
     onChangeSwitch(switchValue) {
         this.setState({toggleHorizontal: !switchValue})
+    }
+
+    onChangeB_Data_005(value,isRise) {
+        if(isRise){
+            if(value!=0){
+                let temp=((this.props.C_PARA.C_PARA_004/value)/100)
+                this.setState({B_DATA_005_FALL:0,B_DATA_005_RISE:value,C_PARA_006:this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp})
+            } else{
+                this.setState({B_DATA_005_FALL:0,B_DATA_005_RISE:value})
+            }
+        } else{
+            let magnitude=value*-1;
+            if(value!=0){
+                let temp=((this.props.C_PARA.C_PARA_004/magnitude)/100)
+                this.setState({B_DATA_005_RISE:0,B_DATA_005_FALL:value,C_PARA_006:this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp})
+            } else{
+                this.setState({B_DATA_005_RISE:0,B_DATA_005_FALL:value})
+            }
+        }
+    }
+
+    onChangeB_Data_006(value,isRise) {
+        if(isRise){
+            if(value!=0){
+                let temp=((this.props.C_PARA.C_PARA_004/value)/100)
+                this.setState({B_DATA_006_FALL:0,B_DATA_006_RISE:value,C_PARA_007:this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp})
+            } else{
+                this.setState({B_DATA_006_FALL:0,B_DATA_006_RISE:value})
+            }
+        } else{
+            let magnitude=value*-1;
+            if(value!=0){
+                let temp=((this.props.C_PARA.C_PARA_004/magnitude)/100)
+                this.setState({B_DATA_006_RISE:0,B_DATA_006_FALL:value,C_PARA_007:this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp})
+            } else{
+                this.setState({B_DATA_006_RISE:0,B_DATA_006_FALL:value})
+            }
+        }
     }
 
     render() {
@@ -96,15 +140,15 @@ class ProjectionScreen extends Component {
                 </View>
 
                 <View style={styles.container}>
-                    <SectionInput label="Expected Rise in Rate-1" value={'0'} unit="%"/>
-                    <SectionInput label="Expected Fall in Rate-1" value={'0'} unit="%"/>
-                    <SectionText label="Proj. Time to Finish" value="CPara-006" unit={DAYS_HOURS_MINS_STRING}/>
+                    <SectionInput label="Expected Rise in Rate-1" value={this.state.B_DATA_005_RISE} unit="%" isRise={true}  onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
+                    <SectionInput label="Expected Fall in Rate-1" value={this.state.B_DATA_005_FALL} unit="%" isRise={false} onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
+                    <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/>
                 </View>
 
                 <View style={styles.container}>
-                    <SectionInput label="Expected Rise in Rate-2" value={'0'} unit="%"/>
-                    <SectionInput label="Expected Fall in Rate-2" value={'0'} unit="%"/>
-                    <SectionText label="Proj. Time to Finish" value="CPara-007" unit={DAYS_HOURS_MINS_STRING}/>
+                    <SectionInput label="Expected Rise in Rate-2" value={this.state.B_DATA_006_RISE_} unit="%" isRise={true} onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
+                    <SectionInput label="Expected Fall in Rate-2" value={this.state.B_DATA_006_FALL_} unit="%" isRise={false} onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
+                    <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_007)} unit={DAYS_HOURS_MINS_STRING}/>
                 </View>
             </ScrollView>
         )
