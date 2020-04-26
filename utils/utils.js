@@ -105,6 +105,17 @@ export const calculate_P_Alt_Variables = (currentRow, benchmarkRow, totalTimeDif
     }
 }
 
+export const getNormalizedData = (data) => {
+
+    let maximum = Math.max(...data);
+    let minimum = Math.min(...data);
+
+    if (maximum === minimum) {
+        return data;
+    }
+
+    return data.map(item => ((item - minimum) / (maximum - minimum)) * 100);
+}
 
 export const VARIABLES = {
     PARA_001: 'Para-001',

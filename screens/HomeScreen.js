@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import * as d3 from 'd3';
@@ -7,9 +7,17 @@ import DisplayLineChart from '../components/DisplayLineChart';
 import SectionText from '../components/SectionText';
 import {getBenchMarks, getData} from '../actions/actions'
 import {connect} from 'react-redux';
-import {VARIABLES} from "../utils/utils";
+import {getNormalizedData, VARIABLES} from "../utils/utils";
+import SectionToggle from "../components/SectionToggle";
 
 class HomeScreen extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            toggleHorizontal: true
+        };
+    }
 
     componentDidMount() {
         firebase.storage().ref('benchmark.csv').getDownloadURL().then(function (url) {
@@ -24,20 +32,82 @@ class HomeScreen extends Component {
         }.bind(this));
     }
 
+    onChangeSwitch(switchValue) {
+        this.setState({toggleHorizontal: !switchValue})
+    }
+
     render() {
+
+        const productsRecoveredData = [{
+            data: this.props.productRecovered,
+            color: (opacity = 1) => 'red',
+        }]
+
+        const rmConsumedData = [{
+            data: this.props.rmConsumed,
+            color: (opacity = 1) => 'orange',
+        }]
+
+        const energyConsumedData = [{
+            data: this.props.energyConsumed,
+            color: (opacity = 1) => 'blue',
+        }]
+
+        const combinedGraphData = [{
+            data: getNormalizedData(this.props.productRecovered),
+            color: (opacity = 1) => 'red',
+        },
+            {
+                data: getNormalizedData(this.props.rmConsumed),
+                color: (opacity = 1) => 'orange',
+            },
+            {
+                data: getNormalizedData(this.props.energyConsumed),
+                color: (opacity = 1) => 'blue',
+            }
+
+        ]
+
+
         return (
             <ScrollView>
-                <ScrollView horizontal={true}>
-                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.productRecovered}/>
-                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.rmConsumed}/>
-                    <DisplayLineChart graphLabel={this.props.graphLabel} graphData={this.props.energyConsumed}/>
 
-                </ScrollView>
                 <View style={styles.container}>
                     <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
                     <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
                     <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
                 </View>
+
+                <View style={styles.graphContainer}>
+                    <SectionToggle label={'Graph Horizontal View:'}
+                                   switchValue={this.state.toggleHorizontal}
+                                   handleSwitchChange={this.onChangeSwitch.bind(this)}/>
+                </View>
+
+                <ScrollView horizontal={this.state.toggleHorizontal}>
+
+                    <DisplayLineChart graphLabel={this.props.graphLabel}
+                                      graphData={combinedGraphData}
+                                      xAxisLabel={'Time (in minutes)'}
+                                      graphName={'Combined Graph'}/>
+
+                    <DisplayLineChart graphLabel={this.props.graphLabel}
+                                      graphData={productsRecoveredData}
+                                      xAxisLabel={'Time (in minutes)'}
+                                      graphName={'Product Recovered'}/>
+
+                    <DisplayLineChart graphLabel={this.props.graphLabel}
+                                      graphData={rmConsumedData}
+                                      xAxisLabel={'Time (in minutes)'}
+                                      graphName={'RM Consumed'}/>
+
+                    <DisplayLineChart graphLabel={this.props.graphLabel}
+                                      graphData={energyConsumedData}
+                                      xAxisLabel={'Time (in minutes)'}
+                                      graphName={'Energy Consumed'}
+                                      color={'blue'}/>
+                </ScrollView>
+
                 <View style={styles.container}>
                     <SectionText label="Product Recovered" value={this.props.currentRow[VARIABLES.PARA_010]} unit="KG"/>
                     <SectionText label="RM Consumed" value={this.props.currentRow[VARIABLES.PARA_001]} unit="KG"/>
@@ -66,6 +136,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginVertical: 10,
     },
+    graphContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginVertical: 0
+
+    }
 })
 
 const mapStateToProps = state => ({

@@ -12,6 +12,7 @@ export const theme = {
     heading:'#000000',
     label:'#000000',
     value:'#000000',
-    unit:'#000000'
+    unit:'#000000',
+    graphSwitchColor: '#e64417',
   },
 };
