@@ -9,6 +9,7 @@ import {getBenchMarks, getData} from '../actions/actions'
 import {connect} from 'react-redux';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import SectionToggle from "../components/SectionToggle";
+// const functions = require('firebase-functions');
 
 class HomeScreen extends Component {
 
@@ -20,16 +21,16 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        firebase.storage().ref('benchmark.csv').getDownloadURL().then(function (url) {
-            d3.csv(url).then(function (result) {
-                this.props.getAllBenchmarks(result);
-                firebase.storage().ref('data.csv').getDownloadURL().then(function (url) {
-                    d3.csv(url).then(function (result) {
-                        this.props.getAllData(result);
-                    }.bind(this))
-                }.bind(this));
-            }.bind(this))
-        }.bind(this));
+        // firebase.storage().ref('benchmark.csv').getDownloadURL().then(function (url) {
+        //     d3.csv(url).then(function (result) {
+        //         this.props.getAllBenchmarks(result);
+        //         firebase.storage().ref('data.csv').getDownloadURL().then(function (url) {
+        //             d3.csv(url).then(function (result) {
+        //                 this.props.getAllData(result);
+        //             }.bind(this))
+        //         }.bind(this));
+        //     }.bind(this))
+        // }.bind(this));
     }
 
     onChangeSwitch(switchValue) {

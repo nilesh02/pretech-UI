@@ -24,7 +24,7 @@ class MaterialBalanceEQPScreen extends Component {
                 </View>
 
                 <View style={styles.container}>
-                    <SectionHeading heading="C=02"/>
+                    <SectionHeading heading="C-02"/>
                     <SectionText label="Feed" value={this.props.currentRow[VARIABLES.PARA_003]} unit="KG"/>
                     <SectionText label="To Decantation" value={this.props.currentRow[VARIABLES.PARA_011]} unit="KG"/>
                     <SectionText label="Effluent to ETP" value={this.props.currentRow[VARIABLES.PARA_012]} unit="kG"/>

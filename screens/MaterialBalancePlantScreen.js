@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View,Dimensions} from 'react-native';
 import DisplayBarChart from '../components/DisplayBarChart';
 import DisplayLineChart from '../components/DisplayLineChart';
 import SectionText from '../components/SectionText';
