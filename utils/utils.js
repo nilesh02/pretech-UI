@@ -10,7 +10,6 @@ export const parseGraphData = (data, benchmarkRow) => {
         startIndex = dataLength - 12;
     }
 
-
     //extracting labels
     let graphData = data.splice(startIndex, endIndex);
 
@@ -114,10 +113,9 @@ export const calculate_C_Para_Variables = (currentRow, benchmarkRow, totalTimeDi
 
     let C_PARA_011 = currentRow[VARIABLES.PARA_001] + currentRow[VARIABLES.PARA_002] - C_PARA_009 - C_PARA_010
 
-    //Change C_PARA_002 to as discussed with business
-    let C_PARA_012 = currentRow[VARIABLES.PARA_003] - C_PARA_011 - C_PARA_002
+    let C_PARA_012 = currentRow[VARIABLES.PARA_003] - currentRow[VARIABLES.PARA_011] - currentRow[VARIABLES.PARA_012]
 
-    let C_PARA_013 = currentRow[VARIABLES.PARA_004] - C_PARA_009 - C_PARA_010
+    let C_PARA_013 = currentRow[VARIABLES.PARA_004] - currentRow[VARIABLES.PARA_009] - currentRow[VARIABLES.PARA_010]
 
     return {
         C_PARA_001: parseFloat(C_PARA_001).toFixed(2),
