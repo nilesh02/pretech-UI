@@ -1,10 +1,4 @@
-import {GET_DATA, BDATA, BDATA_001, BDATA_002, BDATA_003, BDATA_004, GET_BENCHMARKS} from "../constants/action-types";
-import {
-    calculateTotalTime,
-    parseGraphData,
-    calculate_P_Alt_Variables,
-    calculate_C_Para_Variables
-} from "../utils/utils";
+import {BDATA, BDATA_001, BDATA_002, BDATA_003, BDATA_004, GET_DATA} from "../constants/action-types";
 
 const initialState = {
     currentRow: {},
@@ -24,7 +18,19 @@ const initialState = {
     GRAPH_P_ALT_001: [0],
     GRAPH_P_ALT_002: [0],
     GRAPH_C_PARA_001: [0],
-    GRAPH_C_PARA_008: [0]
+    GRAPH_C_PARA_008: [0],
+    LAST_ONE_HR_PARA_001: 0,
+    LAST_ONE_HR_PARA_010: 0,
+    LAST_ONE_HR_PARA_012: 0,
+    LAST_ONE_HR_C_PARA_008: 0,
+    SHIFT_PARA_001: 0,
+    SHIFT_PARA_010: 0,
+    SHIFT_PARA_012: 0,
+    SHIFT_C_PARA_008: 0,
+    BATCH_PARA_001: 0,
+    BATCH_PARA_010: 0,
+    BATCH_PARA_012: 0,
+    BATCH_C_PARA_008: 0
 };
 
 function rootReducer(state = initialState, action) {
@@ -33,33 +39,40 @@ function rootReducer(state = initialState, action) {
     switch (action.type) {
 
         case GET_DATA:
-            let graphData = parseGraphData(result, state.benchmarkRow);
-            let totalTimeDifferenceInMinutes = calculateTotalTime(result);
-            let P_ALT = calculate_P_Alt_Variables(result[result.length - 1], state.benchmarkRow, totalTimeDifferenceInMinutes)
-            let C_PARA = calculate_C_Para_Variables(result[result.length - 1], state.benchmarkRow, totalTimeDifferenceInMinutes,
-                P_ALT, state.BDATA_001, state.BDATA_002, state.BDATA_003, state.BDATA_004)
-            // console.log(graphData)
-            return Object.assign({}, state, {
-                currentRow: result[result.length - 1],
-                graphLabel: graphData.label,
-                productRecovered: graphData.productRecovered,
-                rmConsumed: graphData.rmConsumed,
-                energyConsumed: graphData.energyConsumed,
-                effluentToETP: graphData.effluentToETP,
-                totalTimeDifferenceInMinutes: totalTimeDifferenceInMinutes,
-                P_ALT: P_ALT,
-                C_PARA: C_PARA,
-                GRAPH_P_ALT_001: graphData.P_ALT_001,
-                GRAPH_P_ALT_002: graphData.P_ALT_002,
-                GRAPH_C_PARA_001: graphData.C_PARA_001,
-                GRAPH_C_PARA_008: graphData.C_PARA_008,
-            });
 
-        case GET_BENCHMARKS:
-            // console.log(result)
-            return Object.assign({}, state, {
-                benchmarkRow: result[result.length - 1]
-            });
+            const apiData = result;
+
+            if ((state.currentRow !== apiData.currentRow) && (apiData !== {})) {
+                return Object.assign({}, state, {
+                    currentRow: apiData.currentRow,
+                    benchmarkRow: apiData.benchmarkRow,
+                    graphLabel: apiData.graphLabel,
+                    productRecovered: apiData.productRecovered,
+                    rmConsumed: apiData.rmConsumed,
+                    energyConsumed: apiData.energyConsumed,
+                    effluentToETP: apiData.effluentToETP,
+                    totalTimeDifferenceInMinutes: apiData.totalTimeDifferenceInMinutes,
+                    P_ALT: apiData.P_ALT,
+                    C_PARA: apiData.C_PARA,
+                    GRAPH_P_ALT_001: apiData.GRAPH_P_ALT_001,
+                    GRAPH_P_ALT_002: apiData.GRAPH_P_ALT_002,
+                    GRAPH_C_PARA_001: apiData.GRAPH_C_PARA_001,
+                    GRAPH_C_PARA_008: apiData.GRAPH_C_PARA_008,
+                    LAST_ONE_HR_PARA_001: apiData.LAST_ONE_HR_PARA_001,
+                    LAST_ONE_HR_PARA_010: apiData.LAST_ONE_HR_PARA_010,
+                    LAST_ONE_HR_PARA_012: apiData.LAST_ONE_HR_PARA_012,
+                    LAST_ONE_HR_C_PARA_008: apiData.LAST_ONE_HR_C_PARA_008,
+                    SHIFT_PARA_001: apiData.SHIFT_PARA_001,
+                    SHIFT_PARA_010: apiData.SHIFT_PARA_010,
+                    SHIFT_PARA_012: apiData.SHIFT_PARA_012,
+                    SHIFT_C_PARA_008: apiData.SHIFT_C_PARA_008,
+                    BATCH_PARA_001: apiData.BATCH_PARA_001,
+                    BATCH_PARA_010: apiData.BATCH_PARA_010,
+                    BATCH_PARA_012: apiData.BATCH_PARA_012,
+                    BATCH_C_PARA_008: apiData.BATCH_C_PARA_008
+                });
+            }
+            break;
 
         case BDATA:
             return Object.assign({}, state, {
