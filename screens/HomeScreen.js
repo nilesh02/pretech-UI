@@ -1,16 +1,10 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import * as firebase from 'firebase';
-import 'firebase/firestore';
-import * as d3 from 'd3';
-import BackgroundFetch from "react-native-background-fetch";
 import DisplayLineChart from '../components/DisplayLineChart';
 import SectionText from '../components/SectionText';
-import {getBenchMarks, getData} from '../actions/actions'
 import {connect} from 'react-redux';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import SectionToggle from "../components/SectionToggle";
-// const functions = require('firebase-functions');
 
 class HomeScreen extends Component {
 
@@ -19,10 +13,6 @@ class HomeScreen extends Component {
         this.state = {
             toggleHorizontal: true
         };
-    }
-
-    componentDidMount() {
-                
     }
 
     onChangeSwitch(switchValue) {
@@ -56,7 +46,6 @@ class HomeScreen extends Component {
             data: getNormalizedData(this.props.energyConsumed),
             color: (opacity = 1) => 'blue',
         }]
-
 
 
         return (
@@ -147,13 +136,5 @@ const mapStateToProps = state => ({
     P_ALT: state.P_ALT,
 });
 
-const mapDispatchToProps = dispatch => ({
-    getAllData: data => {
-        dispatch(getData(data));
-    },
-    getAllBenchmarks: data => {
-        dispatch(getBenchMarks(data))
-    }
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
+export default connect(mapStateToProps, null)(HomeScreen)

@@ -1,5 +1,4 @@
 export const GET_DATA = "GET_DATA";
-export const GET_BENCHMARKS = "GET_BENCHMARKS";
 export const BDATA = "BDATA";
 export const BDATA_001 = "BDATA_001";
 export const BDATA_002 = "BDATA_002";

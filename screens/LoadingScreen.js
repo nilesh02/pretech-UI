@@ -2,9 +2,10 @@ import React from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import * as d3 from 'd3';
-import {updateBdata,getBenchMarks, getData} from '../actions/actions'
+import {getData, updateBdata} from '../actions/actions'
 import {connect} from 'react-redux';
+import {API_LINK, GET_ALL_DATA_TIMEOUT_INTERVAL} from "../utils/utils";
+import axios from "axios";
 
 class LoadingScreen extends React.Component {
 
@@ -20,22 +21,18 @@ class LoadingScreen extends React.Component {
             measurementId: "G-60N4PNB2QH"
         };
         firebase.initializeApp(firebaseConfig);
+        // this.props.getAllData();
 
-        // this._interval = setInterval(() => {
-        //     console.log("Called..");
-        //     firebase.storage().ref('benchmark.csv').getDownloadURL().then(function (url) {
-        //         d3.csv(url).then(function (result) {
-        //             this.props.getAllBenchmarks(result);
-        //             firebase.storage().ref('data.csv').getDownloadURL().then(function (url) {
-        //                 d3.csv(url).then(function (result) {
-        //                     this.props.getAllData(result);
-        //                 }.bind(this))
-        //             }.bind(this));
-        //         }.bind(this))
-        //     }.bind(this));
-        //   }, 30000);
+        axios.get(API_LINK)
+            .then(res => {
+                this.props.getAllData(res.data);
+                firebase.auth().onAuthStateChanged(user => {
+                    this.props.navigation.navigate(user ? 'MainScreen' : 'LoginScreen')
+                })
+            })
 
         firebase.firestore().collection("collections").doc("documents").onSnapshot((doc) => {
+
             if (doc.exists) {
                 let result = {
                     BDATA_001: parseFloat(doc.data().BDATA_001),
@@ -47,20 +44,14 @@ class LoadingScreen extends React.Component {
             } else {
                 console.log("no document found");
             }
-            firebase.storage().ref('benchmark.csv').getDownloadURL().then(function (url) {
-                d3.csv(url).then(function (result) {
-                    this.props.getAllBenchmarks(result);
-                    firebase.storage().ref('data.csv').getDownloadURL().then(function (url) {
-                        d3.csv(url).then(function (result) {
-                            this.props.getAllData(result);
-                            firebase.auth().onAuthStateChanged(user => {
-                                this.props.navigation.navigate(user ? 'MainScreen' : 'LoginScreen')
-                            })
-                        }.bind(this))
-                    }.bind(this));
-                }.bind(this))
-            }.bind(this));
         });
+
+        setInterval(() => {
+            axios.get(API_LINK)
+                .then(res => {
+                    this.props.getAllData(res.data);
+                })
+        }, GET_ALL_DATA_TIMEOUT_INTERVAL);
     }
 
     render() {
@@ -88,9 +79,6 @@ const mapDispatchToProps = dispatch => ({
     getAllData: data => {
         dispatch(getData(data));
     },
-    getAllBenchmarks: data => {
-        dispatch(getBenchMarks(data))
-    }
 });
 
 export default connect(null, mapDispatchToProps)(LoadingScreen)

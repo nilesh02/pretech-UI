@@ -28,16 +28,16 @@ class ProjectionScreen extends Component {
         // console.log(value,dropDownValue);
         if(dropDownValue==='Rise'){
             if (value > 0) {
-                // let temp=((this.props.C_PARA.C_PARA_004/value)/100)
-                let temp = this.props.C_PARA.C_PARA_004 * (1 + (value / 100))
+                let temp=((this.props.C_PARA.C_PARA_004/value)/100)
+                // let temp = this.props.C_PARA.C_PARA_004 * (1 + (value / 100))
                 this.setState({B_DATA_005: value, C_PARA_006: this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp })
             } else{
                 this.setState({B_DATA_005: value, C_PARA_006: this.props.P_ALT.P_ALT_001 })
             }
         } else {
             if (value > 0) {
-                // let temp=((this.props.C_PARA.C_PARA_004/(value*-1))/100)
-                let temp = this.props.C_PARA.C_PARA_004 * (1 - (value / 100))
+                let temp=((this.props.C_PARA.C_PARA_004/(value*-1))/100)
+                // let temp = this.props.C_PARA.C_PARA_004 * (1 - (value / 100))
                 this.setState({B_DATA_005: value, C_PARA_006: this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp })
             } else{
                 this.setState({B_DATA_005: value, C_PARA_006: this.props.P_ALT.P_ALT_001 })
@@ -48,16 +48,16 @@ class ProjectionScreen extends Component {
     onChangeB_Data_006(value,dropDownValue) {
         if(dropDownValue==='Rise'){
             if (value > 0) {
-                // let temp=((this.props.C_PARA.C_PARA_004/value)/100)
-                let temp = this.props.C_PARA.C_PARA_004 * (1 + (value / 100))
+                let temp=((this.props.C_PARA.C_PARA_004/value)/100)
+                // let temp = this.props.C_PARA.C_PARA_004 * (1 + (value / 100))
                 this.setState({B_DATA_006: value, C_PARA_007: this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp })
             } else{
                 this.setState({B_DATA_006: value, C_PARA_007: this.props.P_ALT.P_ALT_001 })
             }
         } else {
             if (value > 0) {
-                // let temp=((this.props.C_PARA.C_PARA_004/(value*-1))/100)
-                let temp = this.props.C_PARA.C_PARA_004 * (1 - (value / 100))
+                let temp=((this.props.C_PARA.C_PARA_004/(value*-1))/100)
+                // let temp = this.props.C_PARA.C_PARA_004 * (1 - (value / 100))
                 this.setState({B_DATA_006: value, C_PARA_007: this.props.P_ALT.P_ALT_001 > temp ? this.props.P_ALT.P_ALT_001 : temp })
             } else{
                 this.setState({B_DATA_006: value, C_PARA_007: this.props.P_ALT.P_ALT_001 })

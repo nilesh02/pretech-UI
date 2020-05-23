@@ -7,13 +7,6 @@ export function getData(payload) {
     };
 }
 
-export function getBenchMarks(payload) {
-    return {
-        type: GET_BENCHMARKS,
-        payload
-    };
-}
-
 export function updateBdata(payload) {
     return {
         type: BDATA,
