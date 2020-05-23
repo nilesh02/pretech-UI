@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import * as d3 from 'd3';
+import BackgroundFetch from "react-native-background-fetch";
 import DisplayLineChart from '../components/DisplayLineChart';
 import SectionText from '../components/SectionText';
 import {getBenchMarks, getData} from '../actions/actions'
@@ -21,16 +22,7 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        // firebase.storage().ref('benchmark.csv').getDownloadURL().then(function (url) {
-        //     d3.csv(url).then(function (result) {
-        //         this.props.getAllBenchmarks(result);
-        //         firebase.storage().ref('data.csv').getDownloadURL().then(function (url) {
-        //             d3.csv(url).then(function (result) {
-        //                 this.props.getAllData(result);
-        //             }.bind(this))
-        //         }.bind(this));
-        //     }.bind(this))
-        // }.bind(this));
+                
     }
 
     onChangeSwitch(switchValue) {
