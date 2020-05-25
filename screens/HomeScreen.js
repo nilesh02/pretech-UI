@@ -5,6 +5,7 @@ import SectionText from '../components/SectionText';
 import {connect} from 'react-redux';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import SectionToggle from "../components/SectionToggle";
+import { VictoryLine,VictoryChart,VictoryTheme,VictoryLabel } from "victory-native";
 
 class HomeScreen extends Component {
 
@@ -36,16 +37,16 @@ class HomeScreen extends Component {
             color: (opacity = 1) => 'blue',
         }]
 
-        const combinedGraphData = [{
-            data: getNormalizedData(this.props.productRecovered),
-            color: (opacity = 1) => 'red',
-        }, {
-            data: getNormalizedData(this.props.rmConsumed),
-            color: (opacity = 1) => 'orange',
-        }, {
-            data: getNormalizedData(this.props.energyConsumed),
-            color: (opacity = 1) => 'blue',
-        }]
+        // const combinedGraphData = [{
+        //     data: getNormalizedData(this.props.productRecovered),
+        //     color: (opacity = 1) => 'red',
+        // }, {
+        //     data: getNormalizedData(this.props.rmConsumed),
+        //     color: (opacity = 1) => 'orange',
+        // }, {
+        //     data: getNormalizedData(this.props.energyConsumed),
+        //     color: (opacity = 1) => 'blue',
+        // }]
 
 
         return (
@@ -64,11 +65,38 @@ class HomeScreen extends Component {
                 </View>
 
                 <ScrollView horizontal={this.state.toggleHorizontal}>
-
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
+                <View style={{backgroundColor:'#ffffff',paddingLeft:15}}>
+                    <VictoryChart
+                        theme={VictoryTheme.material}
+                    >
+                    <VictoryLabel text="PRODUCT RECOVERED" x={'50%'} y={30} textAnchor="middle"/>
+                    <VictoryLine
+                        style={{
+                        data: {stroke: "#c43a31"},
+                        parent: { border: "1px solid #ccc"}
+                        }}
+                        data={[
+                            {x:0 , y:13742},
+                            {x:5 , y:13797},
+                            {x:10 , y:13853},
+                            {x:15 , y:13909},
+                            {x:20 , y:13964},
+                            {x:25 , y:14020},
+                            {x:30 , y:14076},
+                            {x:35 , y:14131},
+                            {x:40 , y:14187},
+                            {x:45 , y:14243},
+                            {x:50 , y:14298},
+                            {x:55 , y:14358}
+                        ]
+                    }
+                    />
+                    </VictoryChart>
+                </View>
+                    {/* <DisplayLineChart graphLabel={this.props.graphLabel}
                                       graphData={combinedGraphData}
                                       xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Combined Graph'}/>
+                                      graphName={'Combined Graph'}/> */}
 
                     <DisplayLineChart graphLabel={this.props.graphLabel}
                                       graphData={productsRecoveredData}

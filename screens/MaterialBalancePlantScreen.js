@@ -7,9 +7,6 @@ import SectionHeading from '../components/SectionHeading';
 import SectionToggle from "../components/SectionToggle";
 import {connect} from "react-redux";
 import {getNormalizedData, VARIABLES} from "../utils/utils";
-
-import FusionCharts from "react-native-fusioncharts";
-
 const dataSource = {
     chart: {
         caption: "Life Span of key systems - Top 3 stores",
