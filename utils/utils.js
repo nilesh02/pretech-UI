@@ -5,12 +5,19 @@ export const getNormalizedData = (data) => {
 
     let maximum = Math.max(...data);
     let minimum = Math.min(...data);
+    let finalData = [];
 
     if (maximum === minimum) {
         return data;
     }
 
-    return data.map(item => ((item - minimum) / (maximum - minimum)) * 100);
+    // return data.map(item => ((item - minimum) / (maximum - minimum)) * 100);
+
+    for (let i = 0; i <= 60; i = i + 5) {
+        let calculatedData = (((data[i/5] - minimum) / (maximum - minimum)) * 100)
+        finalData[i / 5] = {x: i, y: calculatedData};
+    }
+    return finalData;
 }
 
 export const getDaysHrsMins = (value) => {
@@ -83,5 +90,6 @@ export const VARIABLES = {
 export const DAYS_HOURS_MINS_STRING = "Days/" + "\n" + "Hours/" + "\n" + "Mins"
 
 export const API_LINK = 'https://protected-shore-12318.herokuapp.com/';
+// export const API_LINK = 'http://192.168.2.154:8081/';
 
 export const GET_ALL_DATA_TIMEOUT_INTERVAL = 3000;
