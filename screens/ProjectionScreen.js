@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionInputDropDown from '../components/SectionInputDropDown';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import {connect} from "react-redux";
 import SectionToggle from "../components/SectionToggle";
-import DisplayLineChart from "../components/DisplayLineChart";
+import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory-native";
+
+
+const width = Dimensions.get('window').width
+const heightOfGraph = 300;
+const yAxisForTimeLabel = 290;
+const yAxisForGraphLabel = 30;
 
 class ProjectionScreen extends Component {
 
@@ -67,32 +73,6 @@ class ProjectionScreen extends Component {
 
     render() {
 
-        const P_ALT_001_DATA = [{
-            data: this.props.GRAPH_P_ALT_001,
-            color: (opacity = 1) => 'red',
-        }]
-
-        const P_ALT_002_DATA = [{
-            data: this.props.GRAPH_P_ALT_002,
-            color: (opacity = 1) => 'orange',
-        }]
-
-        const C_PARA_001_DATA = [{
-            data: this.props.GRAPH_C_PARA_001,
-            color: (opacity = 1) => 'blue',
-        }]
-
-        const combinedGraphData = [{
-            data: getNormalizedData(this.props.GRAPH_P_ALT_001),
-            color: (opacity = 1) => 'red',
-        }, {
-            data: getNormalizedData(this.props.GRAPH_P_ALT_002),
-            color: (opacity = 1) => 'orange',
-        }, {
-            data: getNormalizedData(this.props.GRAPH_C_PARA_001),
-            color: (opacity = 1) => 'blue',
-        }]
-
         return (
             <ScrollView>
 
@@ -110,27 +90,79 @@ class ProjectionScreen extends Component {
 
                 <ScrollView horizontal={this.state.toggleHorizontal}>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={combinedGraphData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Combined Graph'}/>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={P_ALT_001_DATA}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Est. Time to Finish'}/>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                        <VictoryChart
+                            theme={VictoryTheme.material} height={heightOfGraph} >
+                            <VictoryLabel text="Combined Graph" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "blue"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.normalizedGRAPH_P_ALT_001}
+                            />
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "orange"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.normalizedGRAPH_P_ALT_002}
+                            />
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "red"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.normalizedGRAPH_C_PARA_001}
+                            />
+                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                        </VictoryChart>
+                    </View>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={P_ALT_002_DATA}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Est. Amt. of Production'}/>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
+                            <VictoryLabel text="Current Production Rate" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "red"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.GRAPH_C_PARA_001}
+                            />
+                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                        </VictoryChart>
+                    </View>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={C_PARA_001_DATA}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Current Production Rate'}
-                                      color={'blue'}
-                                      decimalPlaces={5}/>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} >
+                            <VictoryLabel text="Est. Time to Finish" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "orange"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.GRAPH_P_ALT_001}
+                            />
+                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                        </VictoryChart>
+                    </View>
+
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
+                            <VictoryLabel text="Est. Amt. of Production" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "green"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.GRAPH_P_ALT_002}
+                            />
+                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                        </VictoryChart>
+                    </View>
+
+
                 </ScrollView>
 
 
@@ -172,6 +204,9 @@ const mapStateToProps = state => ({
     GRAPH_P_ALT_001: state.GRAPH_P_ALT_001,
     GRAPH_P_ALT_002: state.GRAPH_P_ALT_002,
     GRAPH_C_PARA_001: state.GRAPH_C_PARA_001,
+    normalizedGRAPH_P_ALT_001: state.normalizedGRAPH_P_ALT_001,
+    normalizedGRAPH_P_ALT_002: state.normalizedGRAPH_P_ALT_002,
+    normalizedGRAPH_C_PARA_001: state.normalizedGRAPH_C_PARA_001,
 });
 
 export default connect(mapStateToProps)(ProjectionScreen)

@@ -1,123 +1,17 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import DisplayBarChart from '../components/DisplayBarChart';
-import DisplayLineChart from '../components/DisplayLineChart';
+import {Dimensions, ScrollView, StyleSheet, View, Text} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionHeading from '../components/SectionHeading';
 import SectionToggle from "../components/SectionToggle";
 import {connect} from "react-redux";
-import {getNormalizedData, VARIABLES} from "../utils/utils";
+import {VARIABLES} from "../utils/utils";
+import {VictoryBar, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine, VictoryTheme} from "victory-native";
 
-import FusionCharts from "react-native-fusioncharts";
+const width = Dimensions.get('window').width
+const heightOfGraph = 300;
+const yAxisForTimeLabel = 290;
+const yAxisForGraphLabel = 30;
 
-const dataSource = {
-    chart: {
-        caption: "Life Span of key systems - Top 3 stores",
-        subcaption: "(With Error Values)",
-        numbersuffix: " Years",
-        yaxisname: "Life Span (years)",
-        theme: "fusion",
-        plottooltext: "Life span of $label in $seriesName is <b>$dataValue</b>"
-    },
-    categories: [
-        {
-            category: [
-                {
-                    label: "Central AC"
-                },
-                {
-                    label: "Computers"
-                },
-                {
-                    label: "Bar-code Scanners"
-                },
-                {
-                    label: "Packaging Machines"
-                },
-                {
-                    label: "Chilling Compartments"
-                }
-            ]
-        }
-    ],
-    dataset: [
-        {
-            seriesname: "Daly City Serramonte",
-            data: [
-                {
-                    value: "8",
-                    errorvalue: "2"
-                },
-                {
-                    value: "3",
-                    errorvalue: "0.5"
-                },
-                {
-                    value: "2",
-                    errorvalue: "1"
-                },
-                {
-                    value: "6",
-                    errorvalue: "1.8"
-                },
-                {
-                    value: "8",
-                    errorvalue: "1.2"
-                }
-            ]
-        },
-        {
-            seriesname: "Bakersfield Central",
-            data: [
-                {
-                    value: "7",
-                    errorvalue: "1"
-                },
-                {
-                    value: "4",
-                    errorvalue: "0.5"
-                },
-                {
-                    value: "2",
-                    errorvalue: "1"
-                },
-                {
-                    value: "4",
-                    errorvalue: "0.8"
-                },
-                {
-                    value: "7",
-                    errorvalue: "1"
-                }
-            ]
-        },
-        {
-            seriesname: "Garden Groove harbour",
-            data: [
-                {
-                    value: "9",
-                    errorvalue: "2"
-                },
-                {
-                    value: "3",
-                    errorvalue: "0.7"
-                },
-                {
-                    value: "3",
-                    errorvalue: "1"
-                },
-                {
-                    value: "6",
-                    errorvalue: "1.8"
-                },
-                {
-                    value: "7",
-                    errorvalue: "1.2"
-                }
-            ]
-        }
-    ]
-};
 class MaterialBalancePlantScreen extends Component {
 
     constructor(props) {
@@ -132,42 +26,6 @@ class MaterialBalancePlantScreen extends Component {
     }
 
     render() {
-
-        const productsRecoveredData = [{
-            data: this.props.productRecovered,
-            color: (opacity = 1) => 'red',
-        }]
-
-        const rmConsumedData = [{
-            data: this.props.rmConsumed,
-            color: (opacity = 1) => 'orange',
-        }]
-
-        const effluentToETPData = [{
-            data: this.props.effluentToETP,
-            color: (opacity = 1) => 'blue',
-        }]
-
-        // const C_PARA_008_DATA = [{
-        //     data: this.props.GRAPH_C_PARA_008,
-        //     color: (opacity = 1) => 'black',
-        // }]
-
-        const combinedGraphData = [{
-            data: getNormalizedData(this.props.productRecovered),
-            color: (opacity = 1) => 'red',
-        }, {
-            data: getNormalizedData(this.props.rmConsumed),
-            color: (opacity = 1) => 'orange',
-        }, {
-            data: getNormalizedData(this.props.effluentToETP),
-            color: (opacity = 1) => 'blue',
-        },
-            // {
-        //     data: getNormalizedData(this.props.GRAPH_C_PARA_008),
-        //     color: (opacity = 1) => 'black',
-        // }
-        ]
 
         return (
             <ScrollView>
@@ -184,32 +42,64 @@ class MaterialBalancePlantScreen extends Component {
                 </View>
 
                 <ScrollView horizontal={this.state.toggleHorizontal}>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={combinedGraphData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Combined Graph'}/>
+                        <View style={{marginLeft: width*0.6, marginBottom: -40}}>
+                            <View style={{flexDirection: 'row',  alignItems: 'center',}}>
+                                <View style={{backgroundColor: "yellow",
+                                    width: 10,
+                                    height: 10,
+                                    marginRight: 4
+                                    }}></View>
+                                <Text>RM Consumed</Text>
+                            </View>
+                            <View style={{flexDirection: 'row',  alignItems: 'center',}}>
+                                <View style={{backgroundColor: "blue",
+                                    width: 10,
+                                    height: 10,
+                                    marginRight: 4
+                                }}></View>
+                                <Text>Product Recovered</Text>
+                            </View>
+                            <View style={{flexDirection: 'row',  alignItems: 'center',}}>
+                                <View style={{backgroundColor: "orange",
+                                    width: 10,
+                                    height: 10,
+                                    marginRight: 4
+                                }}></View>
+                                <Text>Effluent to ETP</Text>
+                            </View>
+                            <View style={{flexDirection: 'row',  alignItems: 'center',}}>
+                                <View style={{backgroundColor: "green",
+                                    width: 10,
+                                    height: 10,
+                                    marginRight: 4
+                                }}></View>
+                                <Text>Matl. In Process</Text>
+                            </View>
+                        </View>
 
-                    <DisplayBarChart graphLabel={this.props.graphLabel}
-                                      graphData={productsRecoveredData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Product Recovered'}/>
+                        <VictoryChart  theme={VictoryTheme.material}>
+                            <VictoryGroup offset={20}
+                                          colorScale={["yellow", "blue", "orange", "green"]}
+                            >
+                                <VictoryBar
+                                    data={this.props.BAR_GRAPH_PARA_001}
+                                />
+                                <VictoryBar
+                                    data={this.props.BAR_GRAPH_PARA_010}
+                                />
+                                <VictoryBar
+                                    data={this.props.BAR_GRAPH_PARA_012}
+                                />
+                                <VictoryBar
+                                    data={this.props.BAR_GRAPH_C_PARA_008}
+                                />
+                            </VictoryGroup>
+                        </VictoryChart>
 
-                    <DisplayBarChart graphLabel={this.props.graphLabel}
-                                      graphData={rmConsumedData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'RM Consumed'}/>
 
-                    <DisplayBarChart graphLabel={this.props.graphLabel}
-                                      graphData={effluentToETPData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Effluent to ETP'}/>
-
-                    {/*<DisplayBarChart graphLabel={this.props.graphLabel}*/}
-                    {/*                  graphData={C_PARA_008_DATA}*/}
-                    {/*                  xAxisLabel={'Time (in minutes)'}*/}
-                    {/*                  graphName={'Matl. In Process'}/>*/}
-
+                    </View>
                 </ScrollView>
 
                 <View style={styles.container}>
@@ -270,6 +160,10 @@ const mapStateToProps = state => ({
     BATCH_PARA_010: state.BATCH_PARA_010,
     BATCH_PARA_012: state.BATCH_PARA_012,
     BATCH_C_PARA_008: state.BATCH_C_PARA_008,
+    BAR_GRAPH_PARA_001: state.BAR_GRAPH_PARA_001,
+    BAR_GRAPH_PARA_010: state.BAR_GRAPH_PARA_010,
+    BAR_GRAPH_PARA_012: state.BAR_GRAPH_PARA_012,
+    BAR_GRAPH_C_PARA_008: state.BAR_GRAPH_C_PARA_008,
 });
 
 export default connect(mapStateToProps)(MaterialBalancePlantScreen)

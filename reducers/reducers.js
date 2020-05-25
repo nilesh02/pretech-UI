@@ -30,7 +30,11 @@ const initialState = {
     BATCH_PARA_001: 0,
     BATCH_PARA_010: 0,
     BATCH_PARA_012: 0,
-    BATCH_C_PARA_008: 0
+    BATCH_C_PARA_008: 0,
+    normalizedRMConsumed: [0],
+    normalizedProductRecovered: [0],
+    normalizedEnergyConsumed: [0]
+
 };
 
 function rootReducer(state = initialState, action) {
@@ -69,7 +73,17 @@ function rootReducer(state = initialState, action) {
                     BATCH_PARA_001: apiData.BATCH_PARA_001,
                     BATCH_PARA_010: apiData.BATCH_PARA_010,
                     BATCH_PARA_012: apiData.BATCH_PARA_012,
-                    BATCH_C_PARA_008: apiData.BATCH_C_PARA_008
+                    BATCH_C_PARA_008: apiData.BATCH_C_PARA_008,
+                    normalizedRMConsumed: apiData.normalizedRMConsumed,
+                    normalizedProductRecovered: apiData.normalizedProductRecovered,
+                    normalizedEnergyConsumed: apiData.normalizedEnergyConsumed,
+                    normalizedGRAPH_P_ALT_001: apiData.normalizedGRAPH_P_ALT_001,
+                    normalizedGRAPH_P_ALT_002: apiData.normalizedGRAPH_P_ALT_002,
+                    normalizedGRAPH_C_PARA_001: apiData.normalizedGRAPH_C_PARA_001,
+                    BAR_GRAPH_PARA_001: apiData.BAR_GRAPH_PARA_001,
+                    BAR_GRAPH_PARA_010: apiData.BAR_GRAPH_PARA_010,
+                    BAR_GRAPH_PARA_012: apiData.BAR_GRAPH_PARA_012,
+                    BAR_GRAPH_C_PARA_008: apiData.BAR_GRAPH_C_PARA_008,
                 });
             }
             break;

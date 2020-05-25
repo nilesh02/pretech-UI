@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import DisplayLineChart from '../components/DisplayLineChart';
+import {ScrollView, StyleSheet, View, Dimensions} from 'react-native';
 import SectionText from '../components/SectionText';
 import {connect} from 'react-redux';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import SectionToggle from "../components/SectionToggle";
+import {VictoryLine, VictoryChart, VictoryTheme, VictoryLabel, VictoryAxis} from "victory-native";
+
+const width = Dimensions.get('window').width
+const heightOfGraph = 300;
+const yAxisForTimeLabel = 290;
+const yAxisForGraphLabel = 30;
 
 class HomeScreen extends Component {
 
@@ -20,33 +25,6 @@ class HomeScreen extends Component {
     }
 
     render() {
-
-        const productsRecoveredData = [{
-            data: this.props.productRecovered,
-            color: (opacity = 1) => 'red',
-        }]
-
-        const rmConsumedData = [{
-            data: this.props.rmConsumed,
-            color: (opacity = 1) => 'orange',
-        }]
-
-        const energyConsumedData = [{
-            data: this.props.energyConsumed,
-            color: (opacity = 1) => 'blue',
-        }]
-
-        const combinedGraphData = [{
-            data: getNormalizedData(this.props.productRecovered),
-            color: (opacity = 1) => 'red',
-        }, {
-            data: getNormalizedData(this.props.rmConsumed),
-            color: (opacity = 1) => 'orange',
-        }, {
-            data: getNormalizedData(this.props.energyConsumed),
-            color: (opacity = 1) => 'blue',
-        }]
-
 
         return (
             <ScrollView>
@@ -64,27 +42,77 @@ class HomeScreen extends Component {
                 </View>
 
                 <ScrollView horizontal={this.state.toggleHorizontal}>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                        <VictoryChart
+                            theme={VictoryTheme.material} height={heightOfGraph} >
+                            <VictoryLabel text="Combined Graph" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "blue"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.normalizedProductRecovered}
+                            />
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "orange"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.normalizedRMConsumed}
+                            />
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "red"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.normalizedEnergyConsumed}
+                            />
+                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                        </VictoryChart>
+                    </View>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={combinedGraphData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Combined Graph'}/>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
+                            <VictoryLabel text="Product Recovered" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "red"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.productRecovered}
+                            />
+                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                        </VictoryChart>
+                    </View>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={productsRecoveredData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Product Recovered'}/>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} >
+                            <VictoryLabel text="RM Consumed" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "orange"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.rmConsumed}
+                            />
+                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                        </VictoryChart>
+                    </View>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={rmConsumedData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'RM Consumed'}/>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
+                            <VictoryLabel text="Energy Consumed" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                            <VictoryLine
+                                style={{
+                                    data: {stroke: "green"},
+                                    parent: {border: "1px solid #ccc"}
+                                }}
+                                data={this.props.energyConsumed}
+                            />
+                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                        </VictoryChart>
+                    </View>
 
-                    <DisplayLineChart graphLabel={this.props.graphLabel}
-                                      graphData={energyConsumedData}
-                                      xAxisLabel={'Time (in minutes)'}
-                                      graphName={'Energy Consumed'}
-                                      color={'blue'}/>
                 </ScrollView>
 
                 <View style={styles.container}>
@@ -134,6 +162,9 @@ const mapStateToProps = state => ({
     graphLabel: state.graphLabel,
     C_PARA: state.C_PARA,
     P_ALT: state.P_ALT,
+    normalizedRMConsumed: state.normalizedRMConsumed,
+    normalizedProductRecovered: state.normalizedProductRecovered,
+    normalizedEnergyConsumed: state.normalizedEnergyConsumed
 });
 
 
