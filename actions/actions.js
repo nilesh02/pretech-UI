@@ -1,6 +1,7 @@
 import {GET_DATA, BDATA, BDATA_001, BDATA_002, BDATA_003, BDATA_004, GET_BENCHMARKS} from "../constants/action-types";
 
 export function getData(payload) {
+    
     return {
         type: GET_DATA,
         payload
