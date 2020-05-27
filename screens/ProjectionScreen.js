@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionInputDropDown from '../components/SectionInputDropDown';
-import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
+import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, VARIABLES} from "../utils/utils";
 import {connect} from "react-redux";
 import SectionToggle from "../components/SectionToggle";
 import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory-native";
@@ -12,6 +12,8 @@ const width = Dimensions.get('window').width
 const heightOfGraph = 300;
 const yAxisForTimeLabel = 290;
 const yAxisForGraphLabel = 30;
+const EXPECTED_RISE_OR_FALL_RATE1 = "Expected Rise" + " or " + "\n" + "Fall in Rate-1";
+const EXPECTED_RISE_OR_FALL_RATE2 = "Expected Rise" + " or " + "\n" + "Fall in Rate-2";
 
 class ProjectionScreen extends Component {
 
@@ -173,12 +175,12 @@ class ProjectionScreen extends Component {
                 </View>
 
                 <View style={styles.container}>
-                    <SectionInputDropDown label="Expected Rise/Fall in Rate-1" value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
+                    <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE1} value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
                     <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/>
                 </View>
 
                 <View style={styles.container}>
-                    <SectionInputDropDown label="Expected Rise/Fall in Rate-2" value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
+                    <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE2} value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
                     <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_007)} unit={DAYS_HOURS_MINS_STRING}/>
                 </View>
             </ScrollView>

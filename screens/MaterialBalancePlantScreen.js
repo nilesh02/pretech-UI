@@ -1,28 +1,17 @@
 import React, {Component} from 'react';
-import {Dimensions, ScrollView, StyleSheet, View, Text} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionHeading from '../components/SectionHeading';
-import SectionToggle from "../components/SectionToggle";
 import {connect} from "react-redux";
 import {VARIABLES} from "../utils/utils";
-import {VictoryBar, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine, VictoryTheme} from "victory-native";
+import {VictoryBar, VictoryChart, VictoryGroup, VictoryTheme} from "victory-native";
 
 const width = Dimensions.get('window').width
-const heightOfGraph = 300;
-const yAxisForTimeLabel = 290;
-const yAxisForGraphLabel = 30;
 
 class MaterialBalancePlantScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            toggleHorizontal: true,
-        };
-    }
-
-    onChangeSwitch(switchValue) {
-        this.setState({toggleHorizontal: !switchValue})
     }
 
     render() {
@@ -35,51 +24,29 @@ class MaterialBalancePlantScreen extends Component {
                     <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
                 </View>
 
-                <View style={styles.graphContainer}>
-                    <SectionToggle label={'Graph Horizontal View:'}
-                                   switchValue={this.state.toggleHorizontal}
-                                   handleSwitchChange={this.onChangeSwitch.bind(this)}/>
-                </View>
+                <ScrollView>
+                    <View style={{backgroundColor: '#ffffff', paddingLeft: 10}}>
 
-                <ScrollView horizontal={this.state.toggleHorizontal}>
-                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-
-                        <View style={{marginLeft: width*0.6, marginBottom: -40}}>
-                            <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                <View style={{backgroundColor: "yellow",
-                                    width: 10,
-                                    height: 10,
-                                    marginRight: 4
-                                    }}></View>
+                        <View style={{marginLeft: width * 0.6, marginBottom: -40}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                <View style={getStyleSheetForGraph("yellow").graphContainer}></View>
                                 <Text>RM Consumed</Text>
                             </View>
-                            <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                <View style={{backgroundColor: "blue",
-                                    width: 10,
-                                    height: 10,
-                                    marginRight: 4
-                                }}></View>
+                            <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                <View style={getStyleSheetForGraph("blue").graphContainer}></View>
                                 <Text>Product Recovered</Text>
                             </View>
-                            <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                <View style={{backgroundColor: "orange",
-                                    width: 10,
-                                    height: 10,
-                                    marginRight: 4
-                                }}></View>
+                            <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                <View style={getStyleSheetForGraph("orange").graphContainer}></View>
                                 <Text>Effluent to ETP</Text>
                             </View>
-                            <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                <View style={{backgroundColor: "green",
-                                    width: 10,
-                                    height: 10,
-                                    marginRight: 4
-                                }}></View>
+                            <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                <View style={getStyleSheetForGraph("green").graphContainer}></View>
                                 <Text>Matl. In Process</Text>
                             </View>
                         </View>
 
-                        <VictoryChart  theme={VictoryTheme.material}>
+                        <VictoryChart theme={VictoryTheme.material}>
                             <VictoryGroup offset={20}
                                           colorScale={["yellow", "blue", "orange", "green"]}
                             >
@@ -138,6 +105,17 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     }
 })
+
+const getStyleSheetForGraph = (backgroundColor) => {
+    return StyleSheet.create({
+        graphContainer: {
+            backgroundColor: backgroundColor,
+            width: 10,
+            height: 10,
+            marginRight: 4
+        }
+    })
+}
 
 const mapStateToProps = state => ({
     currentRow: state.currentRow,
