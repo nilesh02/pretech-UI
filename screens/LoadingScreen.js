@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View,InteractionManager} from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import {getData, updateBdata} from '../actions/actions'
@@ -26,6 +26,7 @@ class LoadingScreen extends React.Component {
         axios.get(API_LINK)
             .then(res => {
                 this.props.getAllData(res.data);
+                console.log('Loading data from API')
                 firebase.auth().onAuthStateChanged(user => {
                     this.props.navigation.navigate(user ? 'MainScreen' : 'LoginScreen')
                 })
@@ -46,12 +47,20 @@ class LoadingScreen extends React.Component {
             }
         });
 
-        setInterval(() => {
-            axios.get(API_LINK)
-                .then(res => {
-                    this.props.getAllData(res.data);
-                })
-        }, GET_ALL_DATA_TIMEOUT_INTERVAL);
+        // setInterval(() => {
+        //     axios.get(API_LINK)
+        //         .then(res => {
+        //             this.props.getAllData(res.data);
+        //         })
+        // }, GET_ALL_DATA_TIMEOUT_INTERVAL);
+        
+        // InteractionManager.runAfterInteractions(() => {
+        //     axios.get(API_LINK)
+        //         .then(res => {
+        //             this.props.getAllData(res.data);
+        //             console.log('Hit BY Interaction Manager')
+        //         })
+        // });
     }
 
     render() {

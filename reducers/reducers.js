@@ -1,4 +1,5 @@
 import {BDATA, BDATA_001, BDATA_002, BDATA_003, BDATA_004, GET_DATA} from "../constants/action-types";
+import axios from "axios";
 
 const initialState = {
     currentRow: {},
@@ -43,9 +44,7 @@ function rootReducer(state = initialState, action) {
     switch (action.type) {
 
         case GET_DATA:
-
-            const apiData = result;
-
+           const apiData = result;
             if ((state.currentRow !== apiData.currentRow) && (apiData !== {})) {
                 return Object.assign({}, state, {
                     currentRow: apiData.currentRow,

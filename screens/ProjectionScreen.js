@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet, View,Text,ActivityIndicator} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionInputDropDown from '../components/SectionInputDropDown';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, VARIABLES} from "../utils/utils";
@@ -25,7 +25,14 @@ class ProjectionScreen extends Component {
             B_DATA_006:0,
             C_PARA_006:this.props.P_ALT.P_ALT_001,
             C_PARA_007:this.props.P_ALT.P_ALT_001,
+            animating:true,
         };
+    }
+
+    componentDidMount(){
+        setTimeout(()=>{
+            this.setState({animating:false});
+        },50);
     }
 
     onChangeSwitch(switchValue) {
@@ -75,116 +82,123 @@ class ProjectionScreen extends Component {
 
     render() {
 
-        return (
-            <ScrollView>
-
-                <View style={styles.container}>
-                    <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
-                    <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
-                    <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
+        if(this.state.animating){
+            return (
+                <View style={styles.containerLoader}>
+                    <Text>Loading</Text>
+                    <ActivityIndicator size="large"/>
                 </View>
 
-                <View style={styles.graphContainer}>
-                    <SectionToggle label={'Graph Horizontal View:'}
-                                   switchValue={this.state.toggleHorizontal}
-                                   handleSwitchChange={this.onChangeSwitch.bind(this)}/>
-                </View>
+            );
+        } else{
+            return (
+                        <ScrollView>
+                            <View style={styles.container}>
+                                <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
+                                <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
+                                <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
+                            </View>
 
-                <ScrollView horizontal={this.state.toggleHorizontal}>
+                            <View style={styles.graphContainer}>
+                                <SectionToggle label={'Graph Horizontal View:'}
+                                            switchValue={this.state.toggleHorizontal}
+                                            handleSwitchChange={this.onChangeSwitch.bind(this)}/>
+                            </View>
 
-
-                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                        <VictoryChart
-                            theme={VictoryTheme.material} height={heightOfGraph} >
-                            <VictoryLabel text="Combined Graph" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                            <VictoryLine
-                                style={{
-                                    data: {stroke: "blue"},
-                                    parent: {border: "1px solid #ccc"}
-                                }}
-                                data={this.props.normalizedGRAPH_P_ALT_001}
-                            />
-                            <VictoryLine
-                                style={{
-                                    data: {stroke: "orange"},
-                                    parent: {border: "1px solid #ccc"}
-                                }}
-                                data={this.props.normalizedGRAPH_P_ALT_002}
-                            />
-                            <VictoryLine
-                                style={{
-                                    data: {stroke: "red"},
-                                    parent: {border: "1px solid #ccc"}
-                                }}
-                                data={this.props.normalizedGRAPH_C_PARA_001}
-                            />
-                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                        </VictoryChart>
-                    </View>
-
-                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
-                            <VictoryLabel text="Current Production Rate" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                            <VictoryLine
-                                style={{
-                                    data: {stroke: "red"},
-                                    parent: {border: "1px solid #ccc"}
-                                }}
-                                data={this.props.GRAPH_C_PARA_001}
-                            />
-                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                        </VictoryChart>
-                    </View>
-
-                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} >
-                            <VictoryLabel text="Est. Time to Finish" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                            <VictoryLine
-                                style={{
-                                    data: {stroke: "orange"},
-                                    parent: {border: "1px solid #ccc"}
-                                }}
-                                data={this.props.GRAPH_P_ALT_001}
-                            />
-                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                        </VictoryChart>
-                    </View>
-
-                    <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                        <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
-                            <VictoryLabel text="Est. Amt. of Production" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                            <VictoryLine
-                                style={{
-                                    data: {stroke: "green"},
-                                    parent: {border: "1px solid #ccc"}
-                                }}
-                                data={this.props.GRAPH_P_ALT_002}
-                            />
-                            <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                        </VictoryChart>
-                    </View>
+                            <ScrollView horizontal={this.state.toggleHorizontal}>
 
 
-                </ScrollView>
+                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                                    <VictoryChart
+                                        theme={VictoryTheme.material} height={heightOfGraph} >
+                                        <VictoryLabel text="Combined Graph" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                                        <VictoryLine
+                                            style={{
+                                                data: {stroke: "blue"},
+                                                parent: {border: "1px solid #ccc"}
+                                            }}
+                                            data={this.props.normalizedGRAPH_P_ALT_001}
+                                        />
+                                        <VictoryLine
+                                            style={{
+                                                data: {stroke: "orange"},
+                                                parent: {border: "1px solid #ccc"}
+                                            }}
+                                            data={this.props.normalizedGRAPH_P_ALT_002}
+                                        />
+                                        <VictoryLine
+                                            style={{
+                                                data: {stroke: "red"},
+                                                parent: {border: "1px solid #ccc"}
+                                            }}
+                                            data={this.props.normalizedGRAPH_C_PARA_001}
+                                        />
+                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                                    </VictoryChart>
+                                </View>
+
+                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
+                                        <VictoryLabel text="Current Production Rate" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                                        <VictoryLine
+                                            style={{
+                                                data: {stroke: "red"},
+                                                parent: {border: "1px solid #ccc"}
+                                            }}
+                                            data={this.props.GRAPH_C_PARA_001}
+                                        />
+                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                                    </VictoryChart>
+                                </View>
+
+                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} >
+                                        <VictoryLabel text="Est. Time to Finish" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                                        <VictoryLine
+                                            style={{
+                                                data: {stroke: "orange"},
+                                                parent: {border: "1px solid #ccc"}
+                                            }}
+                                            data={this.props.GRAPH_P_ALT_001}
+                                        />
+                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                                    </VictoryChart>
+                                </View>
+
+                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
+                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
+                                        <VictoryLabel text="Est. Amt. of Production" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
+                                        <VictoryLine
+                                            style={{
+                                                data: {stroke: "green"},
+                                                parent: {border: "1px solid #ccc"}
+                                            }}
+                                            data={this.props.GRAPH_P_ALT_002}
+                                        />
+                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                                    </VictoryChart>
+                                </View>
+                            </ScrollView>
 
 
-                <View style={styles.container}>
-                    <SectionText label="Current Production Rate" value={this.props.C_PARA.C_PARA_001} unit="KG/hr"/>
-                    <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001)} unit={DAYS_HOURS_MINS_STRING}/>
-                    <SectionText label="Est. Amt. of Production" value={this.props.P_ALT.P_ALT_002} unit="KG"/>
-                </View>
+                            <View style={styles.container}>
+                                <SectionText label="Current Production Rate" value={this.props.C_PARA.C_PARA_001} unit="KG/hr"/>
+                                <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001)} unit={DAYS_HOURS_MINS_STRING}/>
+                                <SectionText label="Est. Amt. of Production" value={this.props.P_ALT.P_ALT_002} unit="KG"/>
+                            </View>
 
-                <View style={styles.container}>
-                    <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE1} value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
-                    <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/>
-                </View>
+                            <View style={styles.container}>
+                                <SectionInputDropDown label="Expected Rise/Fall in Rate-1" value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
+                                <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/>
+                            </View>
 
-                <View style={styles.container}>
-                    <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE2} value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
-                    <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_007)} unit={DAYS_HOURS_MINS_STRING}/>
-                </View>
-            </ScrollView>
-        )
+                            <View style={styles.container}>
+                                <SectionInputDropDown label="Expected Rise/Fall in Rate-2" value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
+                                <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_007)} unit={DAYS_HOURS_MINS_STRING}/>
+                            </View>
+                        </ScrollView>
+                    )
+        }
     }
 }
 
@@ -194,6 +208,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 10,
+    },
+    containerLoader: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
 
