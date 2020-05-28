@@ -188,12 +188,12 @@ class ProjectionScreen extends Component {
                             </View>
 
                             <View style={styles.container}>
-                                <SectionInputDropDown label="Expected Rise/Fall in Rate-1" value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
+                                <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE1} value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
                                 <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/>
                             </View>
 
                             <View style={styles.container}>
-                                <SectionInputDropDown label="Expected Rise/Fall in Rate-2" value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
+                                <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE2} value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
                                 <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_007)} unit={DAYS_HOURS_MINS_STRING}/>
                             </View>
                         </ScrollView>

@@ -59,35 +59,19 @@ class MaterialBalancePlantScreen extends Component {
 
                             <View style={{marginLeft: width*0.6, marginBottom: -40}}>
                                 <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                    <View style={{backgroundColor: "yellow",
-                                        width: 10,
-                                        height: 10,
-                                        marginRight: 4
-                                        }}></View>
+                                    <View style={getStyleSheetForGraph("green").graphContainer}></View>
                                     <Text>RM Consumed</Text>
                                 </View>
                                 <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                    <View style={{backgroundColor: "blue",
-                                        width: 10,
-                                        height: 10,
-                                        marginRight: 4
-                                    }}></View>
+                                    <View style={getStyleSheetForGraph("blue").graphContainer}></View>
                                     <Text>Product Recovered</Text>
                                 </View>
                                 <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                    <View style={{backgroundColor: "orange",
-                                        width: 10,
-                                        height: 10,
-                                        marginRight: 4
-                                    }}></View>
+                                    <View style={getStyleSheetForGraph("orange").graphContainer}></View>
                                     <Text>Effluent to ETP</Text>
                                 </View>
                                 <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                    <View style={{backgroundColor: "green",
-                                        width: 10,
-                                        height: 10,
-                                        marginRight: 4
-                                    }}></View>
+                                    <View style={getStyleSheetForGraph("green").graphContainer}></View>
                                     <Text>Matl. In Process</Text>
                                 </View>
                             </View>
