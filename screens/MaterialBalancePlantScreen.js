@@ -2,15 +2,11 @@ import React, {Component} from 'react';
 import {Dimensions, ScrollView, StyleSheet, View,Text,ActivityIndicator} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionHeading from '../components/SectionHeading';
-import SectionToggle from "../components/SectionToggle";
 import {connect} from "react-redux";
 import {VARIABLES} from "../utils/utils";
-import {VictoryBar, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine, VictoryTheme} from "victory-native";
+import {VictoryBar, VictoryChart, VictoryGroup, VictoryTheme} from "victory-native";
 
 const width = Dimensions.get('window').width
-const heightOfGraph = 300;
-const yAxisForTimeLabel = 290;
-const yAxisForGraphLabel = 30;
 
 class MaterialBalancePlantScreen extends Component {
 
@@ -63,35 +59,19 @@ class MaterialBalancePlantScreen extends Component {
 
                             <View style={{marginLeft: width*0.6, marginBottom: -40}}>
                                 <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                    <View style={{backgroundColor: "yellow",
-                                        width: 10,
-                                        height: 10,
-                                        marginRight: 4
-                                        }}></View>
+                                    <View style={getStyleSheetForGraph("green").graphContainer}></View>
                                     <Text>RM Consumed</Text>
                                 </View>
                                 <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                    <View style={{backgroundColor: "blue",
-                                        width: 10,
-                                        height: 10,
-                                        marginRight: 4
-                                    }}></View>
+                                    <View style={getStyleSheetForGraph("blue").graphContainer}></View>
                                     <Text>Product Recovered</Text>
                                 </View>
                                 <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                    <View style={{backgroundColor: "orange",
-                                        width: 10,
-                                        height: 10,
-                                        marginRight: 4
-                                    }}></View>
+                                    <View style={getStyleSheetForGraph("orange").graphContainer}></View>
                                     <Text>Effluent to ETP</Text>
                                 </View>
                                 <View style={{flexDirection: 'row',  alignItems: 'center',}}>
-                                    <View style={{backgroundColor: "green",
-                                        width: 10,
-                                        height: 10,
-                                        marginRight: 4
-                                    }}></View>
+                                    <View style={getStyleSheetForGraph("green").graphContainer}></View>
                                     <Text>Matl. In Process</Text>
                                 </View>
                             </View>
@@ -161,6 +141,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }
 })
+
+const getStyleSheetForGraph = (backgroundColor) => {
+    return StyleSheet.create({
+        graphContainer: {
+            backgroundColor: backgroundColor,
+            width: 10,
+            height: 10,
+            marginRight: 4
+        }
+    })
+}
 
 const mapStateToProps = state => ({
     currentRow: state.currentRow,
