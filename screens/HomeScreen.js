@@ -44,7 +44,7 @@ class HomeScreen extends Component {
         } else{
 
             return (
-                <ScrollView>
+                <ScrollView style={styles.homeScreen}>
 
                     <View style={styles.container}>
                         <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
@@ -156,6 +156,9 @@ class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    homeScreen:{
+        // marginTop: 50,
+    },
     container: {
         flex: 1,
         justifyContent: 'flex-start',

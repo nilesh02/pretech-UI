@@ -6,6 +6,8 @@ import {getData, updateBdata} from '../actions/actions'
 import {connect} from 'react-redux';
 import {API_LINK, GET_ALL_DATA_TIMEOUT_INTERVAL} from "../utils/utils";
 import axios from "axios";
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from "./HomeScreen";
 
 class LoadingScreen extends React.Component {
 
@@ -28,7 +30,7 @@ class LoadingScreen extends React.Component {
                 this.props.getAllData(res.data);
                 console.log('Loading data from API')
                 firebase.auth().onAuthStateChanged(user => {
-                    this.props.navigation.navigate(user ? 'MainScreen' : 'LoginScreen')
+                    this.props.navigation.navigate(user ? 'Home' : 'LoginScreen')
                 })
             })
 
@@ -53,7 +55,7 @@ class LoadingScreen extends React.Component {
         //             this.props.getAllData(res.data);
         //         })
         // }, GET_ALL_DATA_TIMEOUT_INTERVAL);
-        
+
         // InteractionManager.runAfterInteractions(() => {
         //     axios.get(API_LINK)
         //         .then(res => {

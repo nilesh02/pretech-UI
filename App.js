@@ -26,7 +26,7 @@ const AppNavigator = createSwitchNavigator(
  },
 );
 
-const AppContainer = createAppContainer(AppNavigator);
+const AppContainer = createAppContainer(MenuDrawer);
 
 export default class App extends React.Component {
   render() {

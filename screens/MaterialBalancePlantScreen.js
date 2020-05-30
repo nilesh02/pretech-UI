@@ -48,12 +48,6 @@ class MaterialBalancePlantScreen extends Component {
                         <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
                     </View>
 
-                    <View style={styles.graphContainer}>
-                        <SectionToggle label={'Graph Horizontal View:'}
-                                    switchValue={this.state.toggleHorizontal}
-                                    handleSwitchChange={this.onChangeSwitch.bind(this)}/>
-                    </View>
-
                     <ScrollView horizontal={this.state.toggleHorizontal}>
                         <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
 
