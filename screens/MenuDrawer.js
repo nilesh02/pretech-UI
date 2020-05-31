@@ -145,5 +145,4 @@ const MenuDrawer = createBottomTabNavigator(
     }
 );
 
-
 export default MenuDrawer;
