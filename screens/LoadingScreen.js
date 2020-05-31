@@ -35,6 +35,13 @@ class LoadingScreen extends React.Component {
                 this.props.getAllData(res.data);
         })
 
+        setInterval(()=> {
+            axios.get(API_LINK)
+                .then((res)=>{
+                    this.props.getAllData(res.data);
+                })
+        }, 5000);
+
         firebase.firestore().collection("collections").doc("documents").onSnapshot((doc) => {
 
             if (doc.exists) {
