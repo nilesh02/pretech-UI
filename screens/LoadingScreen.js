@@ -30,22 +30,11 @@ class LoadingScreen extends React.Component {
             measurementId: "G-60N4PNB2QH"
         };
 
-        if (!firebase.apps.length) {
-            firebase.initializeApp({});
-         }
-         else{
-            firebase.initializeApp(firebaseConfig);
-         }
+        firebase.initializeApp(firebaseConfig);
 
         axios.get(API_LINK)
             .then((res)=>{
                 this.props.getAllData(res.data);
-                console.log('Loading data from API')
-                firebase.auth().onAuthStateChanged(user => {
-                    this.props.navigation.navigate(user ? 'Home' : 'LoginScreen')
-                })
-            })
-
         })
 
         firebase.firestore().collection("collections").doc("documents").onSnapshot((doc) => {

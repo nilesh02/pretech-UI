@@ -5,16 +5,16 @@ import { theme } from '../core/theme';
 const TopSection = ({ batchNumber,ProductName,OfficeInCharge, ...props }) => (
   <View style={styles.container}>
         <View style={styles.innerContainer}>
-            <Text style={styles.textStyleOfficerName}>Nilesh Rathi</Text>
+            <Text style={styles.textStyleOfficerName}>{OfficeInCharge}</Text>
             <Text style={styles.textStyleOfficerInCharge}>(Officer In Charge)</Text>
         </View>
         <View style={styles.innerContainerBottom}>
             <Text style={styles.textStyleBatchNumber}>Batch Number</Text>
-            <Text style={styles.textStyleBatchNumberRight}>100</Text>
+            <Text style={styles.textStyleBatchNumberRight}>{batchNumber}</Text>
         </View>
         <View style={styles.innerContainerBottom1}>
             <Text style={styles.textStyleBatchNumber}>Product Name</Text>
-            <Text style={styles.textStyleBatchNumberRight}>prod Name</Text>
+            <Text style={styles.textStyleBatchNumberRight}>{ProductName}</Text>
         </View>
   </View>
 );
