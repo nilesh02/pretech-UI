@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, ScrollView, StyleSheet, View,Text,ActivityIndicator} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet, View, Text, ActivityIndicator} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionHeading from '../components/SectionHeading';
 import SectionToggle from "../components/SectionToggle";
@@ -19,24 +19,19 @@ class MaterialBalancePlantScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toggleHorizontal: true,
-            animating:true,
+            animating: true,
         };
     }
 
-    componentDidMount(){
-        setTimeout(()=>{
-            this.setState({animating:false});
-        },50);
-    }
-
-    onChangeSwitch(switchValue) {
-        this.setState({toggleHorizontal: !switchValue})
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({animating: false});
+        }, 50);
     }
 
     render() {
 
-        if(this.state.animating){
+        if (this.state.animating) {
             return (
                 <View style={styles.containerLoader}>
                     <Text>Loading</Text>
@@ -44,7 +39,7 @@ class MaterialBalancePlantScreen extends Component {
                 </View>
 
             );
-        } else{
+        } else {
 
             return (
                 <ScrollView style={{backgroundColor: theme.colors.backgroundColor}}>
@@ -52,37 +47,33 @@ class MaterialBalancePlantScreen extends Component {
                                 ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
                                 OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
                     </TopSection>
-                    <View style={styles.graphContainer}>
-                        <SectionToggle label={'Graph Horizontal View:'}
-                                    switchValue={this.state.toggleHorizontal}
-                                    handleSwitchChange={this.onChangeSwitch.bind(this)}/>
-                    </View>
 
-                    <ScrollView horizontal={this.state.toggleHorizontal}>
+
+                    <View style={styles.container}>
                         <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
 
-                            <View style={{marginLeft: width*0.6, marginBottom: -40}}>
-                                <View style={{flexDirection: 'row',  alignItems: 'center',}}>
+                            <View style={{marginLeft: width * 0.5, marginBottom: -40, marginTop: 10}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center',}}>
                                     <View style={getStyleSheetForGraph("green").graphContainer}></View>
                                     <Text>RM Consumed</Text>
                                 </View>
-                                <View style={{flexDirection: 'row',  alignItems: 'center',}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center',}}>
                                     <View style={getStyleSheetForGraph("blue").graphContainer}></View>
                                     <Text>Product Recovered</Text>
                                 </View>
-                                <View style={{flexDirection: 'row',  alignItems: 'center',}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center',}}>
                                     <View style={getStyleSheetForGraph("orange").graphContainer}></View>
                                     <Text>Effluent to ETP</Text>
                                 </View>
-                                <View style={{flexDirection: 'row',  alignItems: 'center',}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center',}}>
                                     <View style={getStyleSheetForGraph("green").graphContainer}></View>
                                     <Text>Matl. In Process</Text>
                                 </View>
                             </View>
 
-                            <VictoryChart  theme={VictoryTheme.material}>
+                            <VictoryChart theme={VictoryTheme.material} width={width * 0.9}>
                                 <VictoryGroup offset={20}
-                                            colorScale={["yellow", "blue", "orange", "green"]}
+                                              colorScale={["yellow", "blue", "orange", "green"]}
                                 >
                                     <VictoryBar
                                         data={this.props.BAR_GRAPH_PARA_001}
@@ -101,7 +92,7 @@ class MaterialBalancePlantScreen extends Component {
 
 
                         </View>
-                    </ScrollView>
+                    </View>
 
                     <View style={styles.container}>
                         <SectionHeading heading="Last One Hour"/>
@@ -138,10 +129,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 10,
-        elevation:5,
-        alignSelf:'center',
-        width:'95%',
-        borderRadius:7,
+        elevation: 5,
+        alignSelf: 'center',
+        width: '95%',
+        borderRadius: 15,
         overflow: 'hidden'
     },
     containerLoader: {
