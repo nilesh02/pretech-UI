@@ -16,7 +16,7 @@ class ProductRecoveredGraphScreen extends Component {
 
         return (
             <View style={GraphStyles.container}>
-                <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} width={width*0.9}  style={{alignSelf: 'center'}}>
+                <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} width={width*0.9}>
                     <VictoryLabel text="Product Recovered" x={width * 0.45} y={yAxisForGraphLabel} textAnchor="middle"/>
                     <VictoryLine
                         style={{
@@ -25,7 +25,7 @@ class ProductRecoveredGraphScreen extends Component {
                         }}
                         data={this.props.productRecovered}
                     />
-                    <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
+                    <VictoryLabel text="Time (in minutes)" x={width * 0.45} y={yAxisForTimeLabel} textAnchor="middle"/>
                 </VictoryChart>
             </View>
         )

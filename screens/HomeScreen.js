@@ -8,9 +8,6 @@ import {theme} from "../core/theme";
 import HomeScreenGraphMenu from "./HomeScreenGraphMenu";
 
 const width = Dimensions.get('window').width
-const heightOfGraph = 300;
-const yAxisForTimeLabel = 290;
-const yAxisForGraphLabel = 30;
 
 class HomeScreen extends Component {
 
@@ -51,7 +48,7 @@ class HomeScreen extends Component {
                                 OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
                     </TopSection>
 
-                    <View>
+                    <View style={styles.HomeScreenGraphMenuStyle}>
                         <HomeScreenGraphMenu/>
                     </View>
 
@@ -88,12 +85,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginVertical: 10,
     },
-    graphContainer: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginVertical: 0,
-        borderRadius: 20,
+    HomeScreenGraphMenuStyle: {
+        width:'95%',
+        justifyContent:'center',
+        alignSelf:'center',
     },
     containerLoader: {
         flex: 1,

@@ -9,7 +9,6 @@ import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import BottomMenu from './screens/BottomMenu';
 import configureStore from './store/store.js';
-import MenuDrawer from "./screens/MenuDrawer";
 
 const store = configureStore();
 

@@ -5,14 +5,10 @@ import SectionInputDropDown from '../components/SectionInputDropDown';
 import TopSection from '../components/TopSection';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, VARIABLES} from "../utils/utils";
 import {connect} from "react-redux";
-import SectionToggle from "../components/SectionToggle";
-import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory-native";
-
+import ProjectionScreenGraphMenu from "./ProjectionScreenGraphMenu";
+import {theme} from "../core/theme";
 
 const width = Dimensions.get('window').width
-const heightOfGraph = 300;
-const yAxisForTimeLabel = 290;
-const yAxisForGraphLabel = 30;
 const EXPECTED_RISE_OR_FALL_RATE1 = "Expected Rise" + " or " + "\n" + "Fall in Rate-1";
 const EXPECTED_RISE_OR_FALL_RATE2 = "Expected Rise" + " or " + "\n" + "Fall in Rate-2";
 
@@ -93,93 +89,14 @@ class ProjectionScreen extends Component {
             );
         } else{
             return (
-                        <ScrollView>
+                        <ScrollView style={{backgroundColor: theme.colors.backgroundColor}}>
                             <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]}
                                 ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
                                 OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
                             </TopSection>
-                            <View style={styles.graphContainer}>
-                                <SectionToggle label={'Graph Horizontal View:'}
-                                            switchValue={this.state.toggleHorizontal}
-                                            handleSwitchChange={this.onChangeSwitch.bind(this)}/>
+                            <View style={styles.ProjectionScreenGraphMenuStyle}>
+                                <ProjectionScreenGraphMenu/>
                             </View>
-
-                            <ScrollView horizontal={this.state.toggleHorizontal}>
-
-
-                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                                    <VictoryChart
-                                        theme={VictoryTheme.material} height={heightOfGraph} >
-                                        <VictoryLabel text="Combined Graph" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "blue"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.normalizedGRAPH_P_ALT_001}
-                                        />
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "orange"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.normalizedGRAPH_P_ALT_002}
-                                        />
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "red"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.normalizedGRAPH_C_PARA_001}
-                                        />
-                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                                    </VictoryChart>
-                                </View>
-
-                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
-                                        <VictoryLabel text="Current Production Rate" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "red"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.GRAPH_C_PARA_001}
-                                        />
-                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                                    </VictoryChart>
-                                </View>
-
-                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} >
-                                        <VictoryLabel text="Est. Time to Finish" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "orange"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.GRAPH_P_ALT_001}
-                                        />
-                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                                    </VictoryChart>
-                                </View>
-
-                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
-                                        <VictoryLabel text="Est. Amt. of Production" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "green"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.GRAPH_P_ALT_002}
-                                        />
-                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                                    </VictoryChart>
-                                </View>
-                            </ScrollView>
-
-
                             <View style={styles.container}>
                                 <SectionText label="Current Production Rate" value={this.props.C_PARA.C_PARA_001} unit="KG/hr"/>
                                 <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001)} unit={DAYS_HOURS_MINS_STRING}/>
@@ -212,6 +129,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    ProjectionScreenGraphMenuStyle:{
+        width:'95%',
+        justifyContent:'center',
+        alignSelf:'center',
     }
 })
 

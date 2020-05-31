@@ -10,35 +10,34 @@ const heightOfGraph = 300;
 const yAxisForTimeLabel = 290;
 const yAxisForGraphLabel = 30;
 
-class HomeScreenCombinedGraph extends Component {
+class ProjectionScreenCombinedGraph extends Component {
 
     render() {
 
         return (
             <View style={GraphStyles.container}>
-                <VictoryChart
-                    theme={VictoryTheme.material} height={heightOfGraph} width={width*0.9} >
-                    <VictoryLabel text="Combined Graph" x={width * 0.45} y={yAxisForGraphLabel} textAnchor="middle" />
+                <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} width={width*0.9}>
+                    <VictoryLabel text="Combined Graph" x={width * 0.45} y={yAxisForGraphLabel} textAnchor="middle"/>
                     <VictoryLine
                         style={{
                             data: {stroke: "blue"},
                             parent: {border: "1px solid #ccc"}
                         }}
-                        data={this.props.normalizedProductRecovered}
+                        data={this.props.normalizedGRAPH_P_ALT_001}
                     />
                     <VictoryLine
                         style={{
-                            data: {stroke: "orange"},
+                            data: {stroke: "green"},
                             parent: {border: "1px solid #ccc"}
                         }}
-                        data={this.props.normalizedRMConsumed}
+                        data={this.props.normalizedGRAPH_P_ALT_002}
                     />
                     <VictoryLine
                         style={{
                             data: {stroke: "red"},
                             parent: {border: "1px solid #ccc"}
                         }}
-                        data={this.props.normalizedEnergyConsumed}
+                        data={this.props.normalizedGRAPH_C_PARA_001}
                     />
                     <VictoryLabel text="Time (in minutes)" x={width * 0.45} y={yAxisForTimeLabel} textAnchor="middle"/>
                 </VictoryChart>
@@ -49,10 +48,10 @@ class HomeScreenCombinedGraph extends Component {
 }
 
 const mapStateToProps = state => ({
-    normalizedRMConsumed: state.normalizedRMConsumed,
-    normalizedProductRecovered: state.normalizedProductRecovered,
-    normalizedEnergyConsumed: state.normalizedEnergyConsumed
+    normalizedGRAPH_P_ALT_001: state.normalizedGRAPH_P_ALT_001,
+    normalizedGRAPH_P_ALT_002: state.normalizedGRAPH_P_ALT_002,
+    normalizedGRAPH_C_PARA_001: state.normalizedGRAPH_C_PARA_001,
 });
 
 
-export default connect(mapStateToProps, null)(HomeScreenCombinedGraph)
+export default connect(mapStateToProps, null)(ProjectionScreenCombinedGraph)

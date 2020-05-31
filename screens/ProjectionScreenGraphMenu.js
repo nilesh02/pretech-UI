@@ -1,16 +1,16 @@
 import React from 'react';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {theme} from "../core/theme";
-import HomeScreenCombinedGraph from "./graphScreens/HomeScreenCombinedGraph";
-import ProductRecoveredGraphScreen from "./graphScreens/ProductRecoveredGraphScreen";
-import RMConsumedGraphScreen from "./graphScreens/RMConsumedGraphScreen";
-import EnergyConsumedGraphScreen from "./graphScreens/EnergyConsumedGraphScreen";
+import ProjectionScreenCombinedGraph from "./graphScreens/ProjectionScreenCombinedGraph";
+import CurrentProductionRateGraph from "./graphScreens/CurrentProductionRateGraph";
+import EstTimeToFinishGrpah from "./graphScreens/EstTimeToFinishGrpah";
+import EstAmtOfProductionGraph from "./graphScreens/EstAmtOfProductionGraph";
 import {createAppContainer} from 'react-navigation';
 
-const HomeScreenGraphContainer = createMaterialTopTabNavigator(
+const ProjectionScreenGraphContainer = createMaterialTopTabNavigator(
     {
         Combined: {
-            screen: HomeScreenCombinedGraph,
+            screen: ProjectionScreenCombinedGraph,
             navigationOptions:  {
                 tabBarLabel: 'Combined',
                 // tabBarIcon: ({tintColor}) => (
@@ -18,28 +18,28 @@ const HomeScreenGraphContainer = createMaterialTopTabNavigator(
                 // )
             }
         },
-        ProductRecovered: {
-            screen: ProductRecoveredGraphScreen,
+        CurrentProductionRate: {
+            screen: CurrentProductionRateGraph,
             navigationOptions:  {
-                tabBarLabel: 'Product Recovered',
+                tabBarLabel: 'Production Rate',
                 // tabBarIcon: ({tintColor}) => (
                 //     <FontAwesomeIcon name="line-chart" size={25} color={tintColor}/>
                 // )
             }
         },
-        RM_Consumed: {
-            screen: RMConsumedGraphScreen,
+        EstTimeToFinish: {
+            screen: EstTimeToFinishGrpah,
             navigationOptions:  {
-                tabBarLabel: 'RM    Consumed',
+                tabBarLabel: 'Est. Time to Finish',
                 // tabBarIcon: ({tintColor}) => (
                 //     <MaterialCommunityIcons name="washing-machine" size={25} color={tintColor}/>
                 // )
             }
         },
-        Energy_Consumed: {
-            screen: EnergyConsumedGraphScreen,
+        EstAmtOfProduction: {
+            screen: EstAmtOfProductionGraph,
             navigationOptions:  {
-                tabBarLabel: 'Energy Consumed',
+                tabBarLabel: 'Est. Amt. of Production',
                 // tabBarIcon: ({tintColor}) => (
                 //     <Octicons name="tools" size={25} color={tintColor}/>
                 // )
@@ -71,6 +71,6 @@ const HomeScreenGraphContainer = createMaterialTopTabNavigator(
     }
 );
 
-const HomeScreenGraphMenu = createAppContainer(HomeScreenGraphContainer)
+const ProjectionScreenGraphMenu = createAppContainer(ProjectionScreenGraphContainer)
 
-export default HomeScreenGraphMenu;
+export default ProjectionScreenGraphMenu;

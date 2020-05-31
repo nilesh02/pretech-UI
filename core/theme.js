@@ -15,6 +15,6 @@ export const theme = {
     unit:'#000000',
     graphSwitchColor: '#e64417',
     bottomInactiveTab:'#555555',
-    backgroundColor: '#d3d3d3'
+    backgroundColor: '#e5e5e5'
   },
 };

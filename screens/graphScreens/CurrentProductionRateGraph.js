@@ -10,20 +10,20 @@ const heightOfGraph = 300;
 const yAxisForTimeLabel = 290;
 const yAxisForGraphLabel = 30;
 
-class EnergyConsumedGraphScreen extends Component {
+class CurrentProductionRateGraph extends Component {
 
     render() {
 
         return (
             <View style={GraphStyles.container}>
                 <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} width={width*0.9}>
-                    <VictoryLabel text="Energy Consumed" x={width * 0.45} y={yAxisForGraphLabel} textAnchor="middle"/>
+                    <VictoryLabel text="Current Production Rate" x={width * 0.45} y={yAxisForGraphLabel} textAnchor="middle"/>
                     <VictoryLine
                         style={{
-                            data: {stroke: "green"},
+                            data: {stroke: "red"},
                             parent: {border: "1px solid #ccc"}
                         }}
-                        data={this.props.energyConsumed}
+                        data={this.props.GRAPH_C_PARA_001}
                     />
                     <VictoryLabel text="Time (in minutes)" x={width * 0.45} y={yAxisForTimeLabel} textAnchor="middle"/>
                 </VictoryChart>
@@ -34,8 +34,8 @@ class EnergyConsumedGraphScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-    energyConsumed: state.energyConsumed,
+    GRAPH_C_PARA_001: state.GRAPH_C_PARA_001,
 });
 
 
-export default connect(mapStateToProps, null)(EnergyConsumedGraphScreen)
+export default connect(mapStateToProps, null)(CurrentProductionRateGraph)

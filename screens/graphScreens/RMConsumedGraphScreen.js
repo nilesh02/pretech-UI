@@ -16,7 +16,7 @@ class RMConsumedGraphScreen extends Component {
 
         return (
             <View style={GraphStyles.container}>
-                <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} width={width*0.9} style={{alignSelf: 'center'}}>
+                <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} width={width*0.9}>
                     <VictoryLabel text="RM Consumed" x={width * 0.45} y={yAxisForGraphLabel} textAnchor="middle"/>
                     <VictoryLine
                         style={{
