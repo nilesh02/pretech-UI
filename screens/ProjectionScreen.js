@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Dimensions, ScrollView, StyleSheet, View,Text,ActivityIndicator} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionInputDropDown from '../components/SectionInputDropDown';
+import TopSection from '../components/TopSection';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import {connect} from "react-redux";
 import SectionToggle from "../components/SectionToggle";
@@ -91,12 +92,10 @@ class ProjectionScreen extends Component {
         } else{
             return (
                         <ScrollView>
-                            <View style={styles.container}>
-                                <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
-                                <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
-                                <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
-                            </View>
-
+                            <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]} 
+                                ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
+                                OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
+                            </TopSection>
                             <View style={styles.graphContainer}>
                                 <SectionToggle label={'Graph Horizontal View:'}
                                             switchValue={this.state.toggleHorizontal}

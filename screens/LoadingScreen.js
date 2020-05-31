@@ -6,10 +6,17 @@ import {getData, updateBdata} from '../actions/actions'
 import {connect} from 'react-redux';
 import {API_LINK, GET_ALL_DATA_TIMEOUT_INTERVAL} from "../utils/utils";
 import axios from "axios";
+import * as Font from 'expo-font';
 
 class LoadingScreen extends React.Component {
 
     componentDidMount() {
+        
+        Font.loadAsync({
+            light:require('../assets/fonts/OpenSans-Light.ttf'),
+            regular:require('../assets/fonts/OpenSans-Regular.ttf'),
+            bold:require('../assets/fonts/OpenSans-Bold.ttf'),
+        })
         const firebaseConfig = {
             apiKey: "AIzaSyBPRy468mWKldsZ2yx2dyzL8PSCE7rlMJk",
             authDomain: "sample-2216b.firebaseapp.com",
@@ -20,18 +27,19 @@ class LoadingScreen extends React.Component {
             appId: "1:714106496514:web:40a17f5f0af225dea1691b",
             measurementId: "G-60N4PNB2QH"
         };
-        firebase.initializeApp(firebaseConfig);
-        // this.props.getAllData();
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp({});
+         }
+         else{
+            firebase.initializeApp(firebaseConfig);
+         }
 
         axios.get(API_LINK)
-            .then(res => {
+            .then((res)=>{
                 this.props.getAllData(res.data);
-                console.log('Loading data from API')
-                firebase.auth().onAuthStateChanged(user => {
-                    this.props.navigation.navigate(user ? 'MainScreen' : 'LoginScreen')
-                })
-            })
-
+        })
+        
         firebase.firestore().collection("collections").doc("documents").onSnapshot((doc) => {
 
             if (doc.exists) {
@@ -47,20 +55,9 @@ class LoadingScreen extends React.Component {
             }
         });
 
-        // setInterval(() => {
-        //     axios.get(API_LINK)
-        //         .then(res => {
-        //             this.props.getAllData(res.data);
-        //         })
-        // }, GET_ALL_DATA_TIMEOUT_INTERVAL);
-        
-        // InteractionManager.runAfterInteractions(() => {
-        //     axios.get(API_LINK)
-        //         .then(res => {
-        //             this.props.getAllData(res.data);
-        //             console.log('Hit BY Interaction Manager')
-        //         })
-        // });
+        firebase.auth().onAuthStateChanged(user => {
+            this.props.navigation.navigate(user ? 'MainScreen' : 'LoginScreen')
+        })
     }
 
     render() {

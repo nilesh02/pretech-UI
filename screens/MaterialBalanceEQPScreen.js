@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View,Text,ActivityIndicator} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionHeading from '../components/SectionHeading';
+import TopSection from '../components/TopSection';
 import {connect} from "react-redux";
 import {VARIABLES} from "../utils/utils";
 
@@ -34,11 +35,10 @@ class MaterialBalanceEQPScreen extends Component {
 
             return (
                 <ScrollView>
-                    <View style={styles.container}>
-                        <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
-                        <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
-                        <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
-                    </View>
+                    <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]} 
+                                ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
+                                OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
+                    </TopSection>
                     <View style={styles.container}>
                         <SectionHeading heading="C-01"/>
                         <SectionText label="Feed - RM" value={this.props.currentRow[VARIABLES.PARA_001]} unit="KG"/>

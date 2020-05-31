@@ -14,5 +14,6 @@ export const theme = {
     value:'#000000',
     unit:'#000000',
     graphSwitchColor: '#e64417',
+    bottomInactiveTab:'#555555',
   },
 };

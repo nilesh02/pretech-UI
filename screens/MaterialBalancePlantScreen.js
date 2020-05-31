@@ -3,6 +3,7 @@ import {Dimensions, ScrollView, StyleSheet, View,Text,ActivityIndicator} from 'r
 import SectionText from '../components/SectionText';
 import SectionHeading from '../components/SectionHeading';
 import SectionToggle from "../components/SectionToggle";
+import TopSection from '../components/TopSection';
 import {connect} from "react-redux";
 import {VARIABLES} from "../utils/utils";
 import {VictoryBar, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine, VictoryTheme} from "victory-native";
@@ -46,12 +47,10 @@ class MaterialBalancePlantScreen extends Component {
 
             return (
                 <ScrollView>
-                    <View style={styles.container}>
-                        <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
-                        <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
-                        <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
-                    </View>
-
+                    <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]} 
+                                ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
+                                OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
+                    </TopSection>
                     <View style={styles.graphContainer}>
                         <SectionToggle label={'Graph Horizontal View:'}
                                     switchValue={this.state.toggleHorizontal}
