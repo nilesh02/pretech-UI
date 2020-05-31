@@ -6,6 +6,7 @@ import SectionToggle from "../components/SectionToggle";
 import TopSection from '../components/TopSection';
 import {connect} from "react-redux";
 import {VARIABLES} from "../utils/utils";
+import {theme} from "../core/theme";
 import {VictoryBar, VictoryChart, VictoryGroup, VictoryTheme} from "victory-native";
 
 const width = Dimensions.get('window').width
@@ -46,7 +47,7 @@ class MaterialBalancePlantScreen extends Component {
         } else{
 
             return (
-                <ScrollView>
+                <ScrollView style={{backgroundColor: theme.colors.backgroundColor}}>
                     <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]}
                                 ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
                                 OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
@@ -137,6 +138,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 10,
+        elevation:5,
+        alignSelf:'center',
+        width:'95%',
+        borderRadius:7,
+        overflow: 'hidden'
     },
     containerLoader: {
         flex: 1,

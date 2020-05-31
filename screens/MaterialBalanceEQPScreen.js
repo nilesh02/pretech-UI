@@ -5,6 +5,8 @@ import SectionHeading from '../components/SectionHeading';
 import TopSection from '../components/TopSection';
 import {connect} from "react-redux";
 import {VARIABLES} from "../utils/utils";
+import {theme} from "../core/theme";
+
 
 class MaterialBalanceEQPScreen extends Component {
 
@@ -34,7 +36,7 @@ class MaterialBalanceEQPScreen extends Component {
         } else{
 
             return (
-                <ScrollView>
+                <ScrollView style={{backgroundColor: theme.colors.backgroundColor}}>
                     <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]} 
                                 ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
                                 OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
