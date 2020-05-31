@@ -64,8 +64,8 @@ const HomeScreenGraphContainer = createMaterialTopTabNavigator(
                 backgroundColor: '#ffffff',
                 justifyContent: 'center',
                 marginTop: 20,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
+                borderTopLeftRadius: 7,
+                borderTopRightRadius: 7,
             }
         }
     }

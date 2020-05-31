@@ -5,6 +5,7 @@ export const GraphStyles = StyleSheet.create({
         paddingLeft:'5%',
         backgroundColor: '#ffffff',
         alignItems: 'center',
-        borderRadius:7
+        borderRadius:7,
+        elevation:5
     }
 });

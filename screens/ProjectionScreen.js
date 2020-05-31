@@ -7,6 +7,8 @@ import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, VARIABLES} from "../utils/utils"
 import {connect} from "react-redux";
 import ProjectionScreenGraphMenu from "./ProjectionScreenGraphMenu";
 import {theme} from "../core/theme";
+import SectionHeading from '../components/SectionHeading';
+
 
 const width = Dimensions.get('window').width
 const EXPECTED_RISE_OR_FALL_RATE1 = "Expected Rise" + " or " + "\n" + "Fall in Rate-1";
@@ -99,18 +101,41 @@ class ProjectionScreen extends Component {
                             </View>
                             <View style={styles.container}>
                                 <SectionText label="Current Production Rate" value={this.props.C_PARA.C_PARA_001} unit="KG/hr"/>
-                                <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001)} unit={DAYS_HOURS_MINS_STRING}/>
                                 <SectionText label="Est. Amt. of Production" value={this.props.P_ALT.P_ALT_002} unit="KG"/>
                             </View>
 
                             <View style={styles.container}>
-                                <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE1} value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
-                                <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/>
+                                <SectionHeading heading="Estimated Time to Finish"/>
+                                <SectionText label="Est. Time In Days" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001,'Days')}
+                                            unit="Days"/>
+                                <SectionText label="Est. Time In Hours" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001,'Hours')}
+                                            unit="Hours"/>
+                                <SectionText label="Est. Time In Mins" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001,'Mins')}
+                                            unit="Mins"/>
                             </View>
 
                             <View style={styles.container}>
+                                <SectionHeading heading="Projected Time to Finish"/>
+                                <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE1} value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
+                                {/* <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/> */}
+                                <SectionText label="Proj. Time In Days" value={getDaysHrsMins(this.state.C_PARA_006,'Days')}
+                                            unit="Days"/>
+                                <SectionText label="Proj. Time In Hours" value={getDaysHrsMins(this.state.C_PARA_006,'Hours')}
+                                            unit="Hours"/>
+                                <SectionText label="Proj. Time In Mins" value={getDaysHrsMins(this.state.C_PARA_006,'Mins')}
+                                            unit="Mins"/>
+                            </View>
+
+                            <View style={styles.container}>
+                                <SectionHeading heading="Projected Time to Finish"/>
                                 <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE2} value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
-                                <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_007)} unit={DAYS_HOURS_MINS_STRING}/>
+                                {/* <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/> */}
+                                <SectionText label="Proj. Time In Days" value={getDaysHrsMins(this.state.C_PARA_007,'Days')}
+                                            unit="Days"/>
+                                <SectionText label="Proj. Time In Hours" value={getDaysHrsMins(this.state.C_PARA_007,'Hours')}
+                                            unit="Hours"/>
+                                <SectionText label="Proj. Time In Mins" value={getDaysHrsMins(this.state.C_PARA_007,'Mins')}
+                                            unit="Mins"/>
                             </View>
                         </ScrollView>
                     )
@@ -124,6 +149,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 10,
+        elevation:5,
+        alignSelf:'center',
+        width:'95%',
+        borderRadius:7,
+        overflow: 'hidden'
     },
     containerLoader: {
         flex: 1,

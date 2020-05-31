@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         width: '100%',
-        marginVertical: 0.4,
+        marginVertical: 0.5,
         padding: 15,
         backgroundColor: '#fff',
         justifyContent: 'space-between',

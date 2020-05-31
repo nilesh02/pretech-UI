@@ -75,6 +75,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 10,
+        elevation:5,
+        alignSelf:'center',
+        width:'95%',
+        borderRadius:7,
+        overflow: 'hidden'
     }
 })
 

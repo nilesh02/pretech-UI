@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, VARIABLES} from "../utils/utils";
 import {theme} from "../core/theme";
 import HomeScreenGraphMenu from "./HomeScreenGraphMenu";
+import SectionHeading from '../components/SectionHeading';
+
 
 const width = Dimensions.get('window').width
 
@@ -61,8 +63,16 @@ class HomeScreen extends Component {
                     </View>
 
                     <View style={styles.container}>
-                        <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005)}
-                                     unit={DAYS_HOURS_MINS_STRING}/>
+                        <SectionHeading heading="Estimated Time to Finish"/>
+                        <SectionText label="Est. Time In Days" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005,'Days')}
+                                     unit="Days"/>
+                        <SectionText label="Est. Time In Hours" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005,'Hours')}
+                                     unit="Hours"/>
+                        <SectionText label="Est. Time In Mins" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005,'Mins')}
+                                     unit="Mins"/>
+                    </View>
+
+                    <View style={styles.container}>
                         <SectionText label="Est. Cost of Batch" value={this.props.C_PARA.C_PARA_002} unit="Rs"/>
                     </View>
 

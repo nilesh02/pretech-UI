@@ -20,13 +20,19 @@ export const getNormalizedData = (data) => {
     return finalData;
 }
 
-export const getDaysHrsMins = (value) => {
+export const getDaysHrsMins = (value,type) => {
 
     let mins = parseFloat(value);
     let hours = parseFloat(mins / 60);
     let days = parseFloat(hours / 24);
 
-    return (days.toFixed(2) + "/\n" + hours.toFixed(2) + "/\n" + mins.toFixed(2))
+    if(type=='Days'){
+        return (days.toFixed(2))
+    } else if(type=='Hours'){
+        return (hours.toFixed(2))
+    } else if(type=='Mins'){
+        return (mins.toFixed(2))
+    }
 }
 
 export const getDataFromApi = () => {
