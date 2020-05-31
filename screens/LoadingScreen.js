@@ -29,9 +29,7 @@ class LoadingScreen extends React.Component {
             appId: "1:714106496514:web:40a17f5f0af225dea1691b",
             measurementId: "G-60N4PNB2QH"
         };
-
         firebase.initializeApp(firebaseConfig);
-
         axios.get(API_LINK)
             .then((res)=>{
                 this.props.getAllData(res.data);

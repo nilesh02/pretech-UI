@@ -63,7 +63,7 @@ class HomeScreen extends Component {
                     <View style={styles.container}>
                         <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005)}
                                      unit={DAYS_HOURS_MINS_STRING}/>
-                        <SectionText label="Est. Cost of Batch" value="Rs." unit={this.props.C_PARA.C_PARA_002}/>
+                        <SectionText label="Est. Cost of Batch" value={this.props.C_PARA.C_PARA_002} unit="Rs"/>
                     </View>
 
                     <View style={styles.container}>
@@ -84,11 +84,17 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 10,
+        elevation:5,
+        alignSelf:'center',
+        width:'95%',
+        borderRadius:7,
+        overflow: 'hidden'
     },
     HomeScreenGraphMenuStyle: {
         width:'95%',
         justifyContent:'center',
         alignSelf:'center',
+        elevation:10,
     },
     containerLoader: {
         flex: 1,

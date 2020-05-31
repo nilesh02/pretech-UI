@@ -18,20 +18,12 @@ const SectionText = ({label, value, unit, ...props}) => (
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        width: '95%',
-        marginVertical: 2,
+        width: '100%',
+        marginVertical: 0.4,
         padding: 15,
         backgroundColor: '#fff',
         justifyContent: 'space-between',
         alignItems: 'center',
-        elevation: 3,
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 1},
-        shadowOpacity: 0.8,
-        shadowRadius: 1,
-        borderRadius: 20,
-        borderWidth: 1,
-        // borderColor: '#eb6e3d'
     },
     innerContainer: {
         width: '40%',
@@ -41,19 +33,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     label: {
-        fontSize: 16,
-        fontWeight: "900",
+        fontSize: 13,
         color: theme.colors.label,
+        fontFamily:'bold',
     },
     value: {
-        fontWeight: "500",
-        fontSize: 15,
+        fontSize: 13,
         color: theme.colors.value,
         alignItems: 'center',
+        fontFamily:'bold',
     },
     unit: {
-        fontWeight: "500",
-        fontSize: 13,
+        fontFamily:'bold',
+        fontSize: 11,
         color: theme.colors.unit,
         alignItems: 'center',
     },
