@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View, Dimensions,Text,ActivityIndicator} from 'react-native';
 import SectionText from '../components/SectionText';
+import TopSection from '../components/TopSection';
 import {connect} from 'react-redux';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
 import SectionToggle from "../components/SectionToggle";
@@ -44,14 +45,11 @@ class HomeScreen extends Component {
         } else{
 
             return (
-                <ScrollView style={styles.homeScreen}>
-
-                    <View style={styles.container}>
-                        <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
-                        <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
-                        <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
-                    </View>
-
+                <ScrollView>
+                    <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]}
+                                ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
+                                OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
+                    </TopSection>
                     <View style={styles.graphContainer}>
                         <SectionToggle label={'Graph Horizontal View:'}
                                     switchValue={this.state.toggleHorizontal}
@@ -156,9 +154,6 @@ class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    homeScreen:{
-        // marginTop: 50,
-    },
     container: {
         flex: 1,
         justifyContent: 'flex-start',
