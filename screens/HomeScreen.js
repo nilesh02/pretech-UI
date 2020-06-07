@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View, Dimensions,Text,ActivityIndicator} from 'react-native';
+import {ActivityIndicator, Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import SectionText from '../components/SectionText';
+import TopSection from '../components/TopSection';
 import {connect} from 'react-redux';
-import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, getNormalizedData, VARIABLES} from "../utils/utils";
-import SectionToggle from "../components/SectionToggle";
-import {VictoryLine, VictoryChart, VictoryTheme, VictoryLabel, VictoryAxis} from "victory-native";
+import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, VARIABLES} from "../utils/utils";
+import {theme} from "../core/theme";
+import HomeScreenGraphMenu from "./HomeScreenGraphMenu";
+import SectionHeading from '../components/SectionHeading';
+
 
 const width = Dimensions.get('window').width
-const heightOfGraph = 300;
-const yAxisForTimeLabel = 290;
-const yAxisForGraphLabel = 30;
 
 class HomeScreen extends Component {
 
@@ -17,14 +17,14 @@ class HomeScreen extends Component {
         super(props);
         this.state = {
             toggleHorizontal: true,
-            animating:true,
+            animating: true,
         };
     }
 
-    componentDidMount(){
-        setTimeout(()=>{
-            this.setState({animating:false});
-        },50);
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({animating: false});
+        }, 50);
     }
 
     onChangeSwitch(switchValue) {
@@ -33,7 +33,7 @@ class HomeScreen extends Component {
 
     render() {
 
-        if(this.state.animating){
+        if (this.state.animating) {
             return (
                 <View style={styles.containerLoader}>
                     <Text>Loading</Text>
@@ -41,107 +41,39 @@ class HomeScreen extends Component {
                 </View>
 
             );
-        } else{
+        } else {
 
             return (
-                <ScrollView>
+                <ScrollView style={{backgroundColor: theme.colors.backgroundColor}}>
+                    <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]}
+                                ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
+                                OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
+                    </TopSection>
 
-                    <View style={styles.container}>
-                        <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
-                        <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
-                        <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
+                    <View style={styles.HomeScreenGraphMenuStyle}>
+                        <HomeScreenGraphMenu/>
                     </View>
 
-                    <View style={styles.graphContainer}>
-                        <SectionToggle label={'Graph Horizontal View:'}
-                                    switchValue={this.state.toggleHorizontal}
-                                    handleSwitchChange={this.onChangeSwitch.bind(this)}/>
-                    </View>
-
-                    <ScrollView horizontal={this.state.toggleHorizontal}>
-                        <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                            <VictoryChart
-                                theme={VictoryTheme.material} height={heightOfGraph} >
-                                <VictoryLabel text="Combined Graph" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                <VictoryLine
-                                    style={{
-                                        data: {stroke: "blue"},
-                                        parent: {border: "1px solid #ccc"}
-                                    }}
-                                    data={this.props.normalizedProductRecovered}
-                                />
-                                <VictoryLine
-                                    style={{
-                                        data: {stroke: "orange"},
-                                        parent: {border: "1px solid #ccc"}
-                                    }}
-                                    data={this.props.normalizedRMConsumed}
-                                />
-                                <VictoryLine
-                                    style={{
-                                        data: {stroke: "red"},
-                                        parent: {border: "1px solid #ccc"}
-                                    }}
-                                    data={this.props.normalizedEnergyConsumed}
-                                />
-                                <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                            </VictoryChart>
-                        </View>
-
-                        <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                            <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
-                                <VictoryLabel text="Product Recovered" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                <VictoryLine
-                                    style={{
-                                        data: {stroke: "red"},
-                                        parent: {border: "1px solid #ccc"}
-                                    }}
-                                    data={this.props.productRecovered}
-                                />
-                                <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                            </VictoryChart>
-                        </View>
-
-                        <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                            <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} >
-                                <VictoryLabel text="RM Consumed" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                <VictoryLine
-                                    style={{
-                                        data: {stroke: "orange"},
-                                        parent: {border: "1px solid #ccc"}
-                                    }}
-                                    data={this.props.rmConsumed}
-                                />
-                                <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                            </VictoryChart>
-                        </View>
-
-                        <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                            <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
-                                <VictoryLabel text="Energy Consumed" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                <VictoryLine
-                                    style={{
-                                        data: {stroke: "green"},
-                                        parent: {border: "1px solid #ccc"}
-                                    }}
-                                    data={this.props.energyConsumed}
-                                />
-                                <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                            </VictoryChart>
-                        </View>
-
-                    </ScrollView>
-
                     <View style={styles.container}>
-                        <SectionText label="Product Recovered" value={this.props.currentRow[VARIABLES.PARA_010]} unit="KG"/>
+                        <SectionText label="Product Recovered" value={this.props.currentRow[VARIABLES.PARA_010]}
+                                     unit="KG"/>
                         <SectionText label="RM Consumed" value={this.props.currentRow[VARIABLES.PARA_001]} unit="KG"/>
-                        <SectionText label="Energy Consumed" value={this.props.currentRow[VARIABLES.PARA_009]} unit="KWH"/>
+                        <SectionText label="Energy Consumed" value={this.props.currentRow[VARIABLES.PARA_009]}
+                                     unit="KWH"/>
                     </View>
 
                     <View style={styles.container}>
-                        <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005)}
-                                    unit={DAYS_HOURS_MINS_STRING}/>
-                        <SectionText label="Est. Cost of Batch" value="Rs." unit={this.props.C_PARA.C_PARA_002}/>
+                        <SectionHeading heading="Estimated Time to Finish"/>
+                        <SectionText label="Est. Time In Days" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005,'Days')}
+                                     unit="Days"/>
+                        <SectionText label="Est. Time In Hours" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005,'Hours')}
+                                     unit="Hours"/>
+                        <SectionText label="Est. Time In Mins" value={getDaysHrsMins(this.props.C_PARA.C_PARA_005,'Mins')}
+                                     unit="Mins"/>
+                    </View>
+
+                    <View style={styles.container}>
+                        <SectionText label="Est. Cost of Batch" value={this.props.C_PARA.C_PARA_002} unit="Rs"/>
                     </View>
 
                     <View style={styles.container}>
@@ -155,19 +87,24 @@ class HomeScreen extends Component {
     }
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 10,
+        elevation:5,
+        alignSelf:'center',
+        width:'95%',
+        borderRadius:7,
+        overflow: 'hidden'
     },
-    graphContainer: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginVertical: 0
-
+    HomeScreenGraphMenuStyle: {
+        width:'95%',
+        justifyContent:'center',
+        alignSelf:'center',
+        elevation:10,
     },
     containerLoader: {
         flex: 1,

@@ -1,7 +1,7 @@
 import {GET_DATA, BDATA, BDATA_001, BDATA_002, BDATA_003, BDATA_004, GET_BENCHMARKS} from "../constants/action-types";
 
+
 export function getData(payload) {
-    
     return {
         type: GET_DATA,
         payload
@@ -70,3 +70,14 @@ export function updateBdata006_Fall(payload) {
         payload
     };
 }
+
+// export function fetchAPIData() {
+//     return async (dispatch) => {
+//         console.log('API DATA FROM MIDDLEWARE')
+//         await axios.get('https://protected-shore-12318.herokuapp.com/')
+//             .then(res => {
+//                 await dispatch(getData(res.data));
+//                 return res.data;
+//             })
+//     };
+//   }

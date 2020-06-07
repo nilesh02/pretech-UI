@@ -13,22 +13,17 @@ const SectionHeading = ({heading,...props }) => (
   
   const styles = StyleSheet.create({
     container: {
-      flexDirection:'row',
-      width: '95%',
-      marginVertical:2,
-      padding:15,
-      backgroundColor:'#fff',
-      justifyContent:'center',
-      alignItems:'center',
-      elevation:3,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: 0.8,
-      shadowRadius: 1,  
+      flexDirection: 'row',
+      width: '100%',
+      marginVertical: 0.4,
+      padding: 15,
+      backgroundColor: '#fff',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     heading: {
-      fontSize:16,
-      fontWeight:"bold",
+      fontSize:15,
+      fontFamily:'bold',
       color: theme.colors.heading,
     },
   });

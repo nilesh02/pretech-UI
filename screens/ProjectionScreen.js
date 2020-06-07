@@ -2,16 +2,15 @@ import React, {Component} from 'react';
 import {Dimensions, ScrollView, StyleSheet, View,Text,ActivityIndicator} from 'react-native';
 import SectionText from '../components/SectionText';
 import SectionInputDropDown from '../components/SectionInputDropDown';
+import TopSection from '../components/TopSection';
 import {DAYS_HOURS_MINS_STRING, getDaysHrsMins, VARIABLES} from "../utils/utils";
 import {connect} from "react-redux";
-import SectionToggle from "../components/SectionToggle";
-import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory-native";
+import ProjectionScreenGraphMenu from "./ProjectionScreenGraphMenu";
+import {theme} from "../core/theme";
+import SectionHeading from '../components/SectionHeading';
 
 
 const width = Dimensions.get('window').width
-const heightOfGraph = 300;
-const yAxisForTimeLabel = 290;
-const yAxisForGraphLabel = 30;
 const EXPECTED_RISE_OR_FALL_RATE1 = "Expected Rise" + " or " + "\n" + "Fall in Rate-1";
 const EXPECTED_RISE_OR_FALL_RATE2 = "Expected Rise" + " or " + "\n" + "Fall in Rate-2";
 
@@ -92,109 +91,51 @@ class ProjectionScreen extends Component {
             );
         } else{
             return (
-                        <ScrollView>
-                            <View style={styles.container}>
-                                <SectionText label="Batch Number" value={this.props.benchmarkRow[VARIABLES.DATA_001]} unit=""/>
-                                <SectionText label="Product" value={this.props.benchmarkRow[VARIABLES.DATA_002]} unit=""/>
-                                <SectionText label="Officer In-charge" value={this.props.benchmarkRow[VARIABLES.DATA_011]} unit=""/>
+                        <ScrollView style={{backgroundColor: theme.colors.backgroundColor}}>
+                            <TopSection batchNumber={this.props.benchmarkRow[VARIABLES.DATA_001]}
+                                ProductName={this.props.benchmarkRow[VARIABLES.DATA_002]}
+                                OfficeInCharge={this.props.benchmarkRow[VARIABLES.DATA_011]}>
+                            </TopSection>
+                            <View style={styles.ProjectionScreenGraphMenuStyle}>
+                                <ProjectionScreenGraphMenu/>
                             </View>
-
-                            <View style={styles.graphContainer}>
-                                <SectionToggle label={'Graph Horizontal View:'}
-                                            switchValue={this.state.toggleHorizontal}
-                                            handleSwitchChange={this.onChangeSwitch.bind(this)}/>
-                            </View>
-
-                            <ScrollView horizontal={this.state.toggleHorizontal}>
-
-
-                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                                    <VictoryChart
-                                        theme={VictoryTheme.material} height={heightOfGraph} >
-                                        <VictoryLabel text="Combined Graph" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "blue"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.normalizedGRAPH_P_ALT_001}
-                                        />
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "orange"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.normalizedGRAPH_P_ALT_002}
-                                        />
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "red"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.normalizedGRAPH_C_PARA_001}
-                                        />
-                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                                    </VictoryChart>
-                                </View>
-
-                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
-                                        <VictoryLabel text="Current Production Rate" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "red"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.GRAPH_C_PARA_001}
-                                        />
-                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                                    </VictoryChart>
-                                </View>
-
-                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph} >
-                                        <VictoryLabel text="Est. Time to Finish" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "orange"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.GRAPH_P_ALT_001}
-                                        />
-                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                                    </VictoryChart>
-                                </View>
-
-                                <View style={{backgroundColor: '#ffffff', paddingLeft: 15}}>
-                                    <VictoryChart theme={VictoryTheme.material} height={heightOfGraph}>
-                                        <VictoryLabel text="Est. Amt. of Production" x={width * 0.5} y={yAxisForGraphLabel} textAnchor="middle"/>
-                                        <VictoryLine
-                                            style={{
-                                                data: {stroke: "green"},
-                                                parent: {border: "1px solid #ccc"}
-                                            }}
-                                            data={this.props.GRAPH_P_ALT_002}
-                                        />
-                                        <VictoryLabel text="Time (in minutes)" x={width * 0.5} y={yAxisForTimeLabel} textAnchor="middle"/>
-                                    </VictoryChart>
-                                </View>
-                            </ScrollView>
-
-
                             <View style={styles.container}>
                                 <SectionText label="Current Production Rate" value={this.props.C_PARA.C_PARA_001} unit="KG/hr"/>
-                                <SectionText label="Est. Time to Finish" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001)} unit={DAYS_HOURS_MINS_STRING}/>
                                 <SectionText label="Est. Amt. of Production" value={this.props.P_ALT.P_ALT_002} unit="KG"/>
                             </View>
 
                             <View style={styles.container}>
-                                <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE1} value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
-                                <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/>
+                                <SectionHeading heading="Estimated Time to Finish"/>
+                                <SectionText label="Est. Time In Days" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001,'Days')}
+                                            unit="Days"/>
+                                <SectionText label="Est. Time In Hours" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001,'Hours')}
+                                            unit="Hours"/>
+                                <SectionText label="Est. Time In Mins" value={getDaysHrsMins(this.props.P_ALT.P_ALT_001,'Mins')}
+                                            unit="Mins"/>
                             </View>
 
                             <View style={styles.container}>
+                                <SectionHeading heading="Projected Time to Finish"/>
+                                <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE1} value={this.state.B_DATA_005} unit="%" onChangeHandler={this.onChangeB_Data_005.bind(this)}/>
+                                {/* <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/> */}
+                                <SectionText label="Proj. Time In Days" value={getDaysHrsMins(this.state.C_PARA_006,'Days')}
+                                            unit="Days"/>
+                                <SectionText label="Proj. Time In Hours" value={getDaysHrsMins(this.state.C_PARA_006,'Hours')}
+                                            unit="Hours"/>
+                                <SectionText label="Proj. Time In Mins" value={getDaysHrsMins(this.state.C_PARA_006,'Mins')}
+                                            unit="Mins"/>
+                            </View>
+
+                            <View style={styles.container}>
+                                <SectionHeading heading="Projected Time to Finish"/>
                                 <SectionInputDropDown label={EXPECTED_RISE_OR_FALL_RATE2} value={this.state.B_DATA_006} unit="%" onChangeHandler={this.onChangeB_Data_006.bind(this)}/>
-                                <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_007)} unit={DAYS_HOURS_MINS_STRING}/>
+                                {/* <SectionText label="Proj. Time to Finish" value={getDaysHrsMins(this.state.C_PARA_006)} unit={DAYS_HOURS_MINS_STRING}/> */}
+                                <SectionText label="Proj. Time In Days" value={getDaysHrsMins(this.state.C_PARA_007,'Days')}
+                                            unit="Days"/>
+                                <SectionText label="Proj. Time In Hours" value={getDaysHrsMins(this.state.C_PARA_007,'Hours')}
+                                            unit="Hours"/>
+                                <SectionText label="Proj. Time In Mins" value={getDaysHrsMins(this.state.C_PARA_007,'Mins')}
+                                            unit="Mins"/>
                             </View>
                         </ScrollView>
                     )
@@ -208,11 +149,21 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 10,
+        elevation:5,
+        alignSelf:'center',
+        width:'95%',
+        borderRadius:7,
+        overflow: 'hidden'
     },
     containerLoader: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    ProjectionScreenGraphMenuStyle:{
+        width:'95%',
+        justifyContent:'center',
+        alignSelf:'center',
     }
 })
 

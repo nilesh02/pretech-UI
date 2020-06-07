@@ -7,7 +7,7 @@ import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import MenuDrawer from './screens/MenuDrawer';
+import BottomMenu from './screens/BottomMenu';
 import configureStore from './store/store.js';
 
 const store = configureStore();
@@ -18,7 +18,7 @@ const AppNavigator = createSwitchNavigator(
      LoginScreen,
      ForgotPasswordScreen,
      RegisterScreen,
-     MainScreen:MenuDrawer,
+     MainScreen:BottomMenu,
   },
  {
    initialRouteName: 'LoadingScreen',
