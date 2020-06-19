@@ -62,25 +62,20 @@ export default class App extends React.Component {
       if (existingStatus !== 'granted') {
         const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
         finalStatus = status;
-        console.log('com.pretech-Asking for permission')
       }
       if (finalStatus !== 'granted') {
         alert('Failed to get push token for push notification!');
-        console.log('Failed to get push token for push notification!');
         return;
       }
-      console.log("com.pretech- reached")
       try{
-        token = await Notifications.getExpoPushTokenAsync();
-        console.log("com.pretech token-"+token);
+        let tokenGenerated = await Notifications.getExpoPushTokenAsync();
         const firestore = firebase.firestore();
           firestore.collection("collections").doc("notifications").update({
-              token
-          }).then(alert('token added-'+token));
-        this.setState({ expoPushToken: token });
+            token: firebase.firestore.FieldValue.arrayUnion(tokenGenerated)
+          }).then(console.log('com.pretech token added-'+tokenGenerated));
+        this.setState({ expoPushToken: tokenGenerated });
       } catch(e){
-        console.log("com.pretech-"+e)
-        alert(e);
+        alert("Push Notifications cannot be activated on your device, please try reinstall the app.",e);
       }
       
     } else {
@@ -119,4 +114,4 @@ export default class App extends React.Component {
   }
 }
 
-// curl -H "Content-Type: application/json" -X POST "https://exp.host/--/api/v2/push/send" -d '{"to":"ExponentPushToken[qPwg76CrNKq8gDdnYLmjqM]","title":"hello","body":"world"}'
+// curl -H "Content-Type: application/json" -X POST "https://exp.host/--/api/v2/push/send" -d '{"to":"ExponentPushToken[SdSAGjMCo0QdFf-Z1Msclb]","title":"hello","body":"world"}'
