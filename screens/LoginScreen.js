@@ -8,6 +8,8 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import { theme } from '../core/theme';
+import { Notifications } from 'expo';
+
 
 export default class LoginScreen extends Component {
 
@@ -25,6 +27,14 @@ export default class LoginScreen extends Component {
     }
 
     loginUser() {
+        try{
+            token = Notifications.getExpoPushTokenAsync();
+            console.log("com.pretech token-"+token);
+            alert(token);
+        } catch(e){
+            console.log("com.pretech token-"+e);
+            alert(e);
+        }
         //validating email address
         const re = /\S+@\S+\.\S+/;
         this.setState({ spinner: true });

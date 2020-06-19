@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "714106496514",
+    "firebase_url": "https://sample-2216b.firebaseio.com",
+    "project_id": "sample-2216b",
+    "storage_bucket": "sample-2216b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714106496514:android:c506e6654431536fa1691b",
+        "android_client_info": {
+          "package_name": "com.pretech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714106496514-ac2q68nd48l6s7966p5sbobnobk9nnj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABwaXd8cStTK-n1uwpPWyvemQLBtKJ_6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714106496514-ac2q68nd48l6s7966p5sbobnobk9nnj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
