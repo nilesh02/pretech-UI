@@ -64,7 +64,7 @@ class SettingsScreen extends Component {
                     </View>
 
                     <View style={styles.buttonContainer}>
-                    <Button  mode="contained" onPress={this.logout.bind(this)}> Log Out </Button>
+                        <Button  mode="contained" onPress={this.logout.bind(this)}> Log Out </Button>
                     </View>
 
                     <View style={styles.container}>
