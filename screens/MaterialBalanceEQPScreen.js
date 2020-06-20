@@ -82,6 +82,12 @@ const styles = StyleSheet.create({
         width:'95%',
         borderRadius:7,
         overflow: 'hidden'
+    },
+
+    containerLoader: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
 

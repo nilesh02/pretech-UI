@@ -27,32 +27,27 @@ export default class LoginScreen extends Component {
     }
 
     loginUser() {
-        try{
-            token = Notifications.getExpoPushTokenAsync();
-            console.log("com.pretech token-"+token);
-            alert(token);
-        } catch(e){
-            console.log("com.pretech token-"+e);
-            alert(e);
-        }
         //validating email address
         const re = /\S+@\S+\.\S+/;
         this.setState({ spinner: true });
+        let flagEmail=false;
+        let flagPassword=false;
         if (!re.test(this.state.email)) {
             this.setState({ emailError: 'Ooops! We need a valid email address.', emailFlag: false });
         } else {
             this.setState({ emailError: '', emailFlag: true });
+            flagEmail=true;
         }
 
         if (this.state.Password.length >= 6 && this.state.Password.length <= 15) {
             this.setState({ PasswordError: '', PasswordFlag: true });
+            flagPassword=true;
         } else {
             this.setState({ PasswordError: 'Password should be between 6 and 15 characters.', PasswordFlag: false });
         }
 
         // console.log("email - "+this.state.email," Password - "+ this.state.Password);
-
-        if (this.state.emailFlag == true && this.state.PasswordFlag == true) {
+        if (flagEmail == true && flagPassword == true) {
             firebase
                 .auth()
                 .signInWithEmailAndPassword(this.state.email, this.state.Password)
@@ -71,7 +66,7 @@ export default class LoginScreen extends Component {
 
     render() {
         return (
-            <Background>
+            <Background >
                 <Logo />
                 <Spinner visible={this.state.spinner} color={theme.colors.spinner} animation="fade"/>
                 <Header>Welcome back.</Header>

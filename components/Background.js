@@ -4,6 +4,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
 } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Background = ({ children }) => (
   <ImageBackground
@@ -11,9 +12,11 @@ const Background = ({ children }) => (
     resizeMode="repeat"
     style={styles.background}
   >
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      {children}
-    </KeyboardAvoidingView>
+    <ScrollView contentContainerStyle={{ flexGrow: 1}}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" >
+          {children }
+      </KeyboardAvoidingView>
+    </ScrollView>
   </ImageBackground>
 );
 

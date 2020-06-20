@@ -19,6 +19,7 @@ class SettingsScreen extends Component {
     }
 
     componentDidMount() {
+        console.log(firebase.auth().currentUser);
         setTimeout(() => {
             this.setState({animating: false});
         }, 50);
@@ -56,10 +57,10 @@ class SettingsScreen extends Component {
             return (
                 <ScrollView style={{marginTop: 50, backgroundColor: theme.colors.backgroundColor}}>
                     <View style={styles.container}>
-                        <SectionText label="NAME" value="Bdata-011" unit=""/>
-                        <SectionText label="Email-ID" value="Bdata-012" unit=""/>
-                        <SectionText label="Mobile Number" value="Bdata-013" unit=""/>
-                        <SectionText label="Password" value="Bdata-014" unit=""/>
+                        <SectionText label="NAME" value={firebase.auth().currentUser.displayName.split("@@")[0]} unit=""/>
+                        <SectionText label="Email-ID" value={firebase.auth().currentUser.email} unit=""/>
+                        <SectionText label="Mobile Number" value={firebase.auth().currentUser.displayName.split("@@")[1]} unit=""/>
+                        <SectionText label="Password" value="Password" unit=""/>
                     </View>
 
                     <View style={styles.buttonContainer}>
@@ -102,6 +103,11 @@ const styles = StyleSheet.create({
         width: '95%',
         borderRadius: 20,
         overflow: 'hidden'
+    },
+    containerLoader: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
 
