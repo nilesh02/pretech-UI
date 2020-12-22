@@ -95,7 +95,7 @@ export const VARIABLES = {
 
 export const DAYS_HOURS_MINS_STRING = "Days/" + "\n" + "Hours/" + "\n" + "Mins"
 
-export const API_LINK = 'https://protected-shore-12318.herokuapp.com/';
-// export const API_LINK = 'http://192.168.2.154:8081/';
+// export const API_LINK = 'https://protected-shore-12318.herokuapp.com/';
+export const API_LINK = 'http://ec2-3-138-111-60.us-east-2.compute.amazonaws.com:5000/';
 
 export const GET_ALL_DATA_TIMEOUT_INTERVAL = 3000;
