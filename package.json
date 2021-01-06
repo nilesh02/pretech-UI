@@ -14,7 +14,7 @@
     "@react-navigation/native": "^5.4.0",
     "@react-navigation/material-bottom-tabs": "^5.2.5",
     "@react-navigation/bottom-tabs": "^5.5.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "d3": "^5.16.0",
     "expo": "~37.0.3",
     "expo-font": "^8.1.1",
